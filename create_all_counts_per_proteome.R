@@ -33,6 +33,8 @@ testthat::expect_true(percentage <= 100)
 testthat::expect_true(percentage / 100 >= 0.0)
 testthat::expect_true(percentage / 100 <= 1.0)
 
+library(dplyr, warn.conflicts = FALSE, quietly = TRUE)
+
 target_filename <- paste0(target_name, "_", percentage, "_counts.csv")
 message("target_filename: ", target_filename)
 
@@ -91,7 +93,6 @@ for (haplotype_index in seq_along(haplotypes)) {
   # Remove the sequences and topologies that are too short
   testthat::expect_true(all(t_proteome$name == t_topology$name))
   testthat::expect_equal(nrow(t_proteome), nrow(t_topology))
-  library(dplyr)
   t_proteome <- t_proteome %>% filter(nchar(sequence) >= peptide_length)
   t_topology <- t_topology %>% filter(nchar(sequence) >= peptide_length)
   testthat::expect_equal(nrow(t_proteome), nrow(t_topology))
@@ -133,8 +134,8 @@ for (haplotype_index in seq_along(haplotypes)) {
     pattern = "[mM]"
   )
 
-
   t_ic50s <- bbbq::get_ic50s_lut(
+    target_name = target_name,
     haplotype = haplotype,
     peptide_length = peptide_length,
     ic50_prediction_tool = ic50_prediction_tool
@@ -144,9 +145,7 @@ for (haplotype_index in seq_along(haplotypes)) {
   ic50_threshold <- as.numeric(quantile(x = t_ic50s$ic50, probs = percentage / 100))
 
   t_ic50s$is_binder <- t_ic50s$ic50 <= ic50_threshold
-  sum(is.na(t_ic50s$is_binder))
-  which(is.na(t_ic50s$is_binder))
-  which(is.na(as.numeric(t_ic50s$is_binder)))
+  testthat::expect_equal(0, sum(is.na(t_ic50s$is_binder)))
 
   t <- dplyr::left_join(x = t_proteome_n_mers, y = t_ic50s, by = c("n_mer" = "peptide"))
 
@@ -170,9 +169,7 @@ for (haplotype_index in seq_along(haplotypes)) {
   # Other debug info
   f_n_mers_overlap_with_tmh <- sum(t$overlap_with_tmh) / nrow(t)
   message("f_n_mers_overlap_with_tmh: ", f_n_mers_overlap_with_tmh)
-  sum(is.na(t$is_binder))
-  which(is.na(t$is_binder))
-  which(is.na(as.numeric(t$is_binder)))
+  testthat::expect_equal(0, sum(is.na(t$is_binder)))
   f_binder <- sum(as.numeric(t$is_binder)) / nrow(t)
   message("f_binder: ", f_binder)
   f_binders_that_overlap_with_tmh <- sum(t$overlap_with_tmh & t$is_binder) / sum(t$is_binder)

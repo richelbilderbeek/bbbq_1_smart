@@ -10,7 +10,9 @@
 #   make results
 #
 all: \
+  covid_2_counts.csv covid_5_counts.csv \
   human_2_counts.csv human_5_counts.csv \
+  myco_2_counts.csv myco_5_counts.csv \
   general.csv
 
 #haplotypes_lut.csv \
