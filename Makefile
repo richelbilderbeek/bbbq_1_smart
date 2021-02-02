@@ -9,7 +9,9 @@
 #
 #   make results
 #
-all: human_5_counts.csv human_2_counts.csv
+all: \
+  human_2_counts.csv human_5_counts.csv \
+  general.csv
 
 #haplotypes_lut.csv \
 #     covid_proteins_lut.csv flua_proteins_lut.csv hepa_proteins_lut.csv \
@@ -27,38 +29,36 @@ all: human_5_counts.csv human_2_counts.csv
 
 ################################################################################
 #
-# 1. PEREGRINE
+# 1. COUNTS PER PROTEIN
 #
 ################################################################################
 
-################################################################################
-# Counts, using sbatch or not
-################################################################################
+covid_2_counts.csv:
+	Rscript create_all_counts_per_proteome.R covid 2
 
-# Will submit/run all jobs
+covid_5_counts.csv:
+	Rscript create_all_counts_per_proteome.R covid 5
+
 human_5_counts.csv:
 	Rscript create_all_counts_per_proteome.R human 5
 
 human_2_counts.csv:
 	Rscript create_all_counts_per_proteome.R human 2
 
-flua_h1_counts.csv:
-	Rscript create_all_counts_per_proteome.R
+myco_2_counts.csv:
+	Rscript create_all_counts_per_proteome.R myco 2
 
-hiv_h1_counts.csv:
-	Rscript create_all_counts_per_proteome.R
-
-rhino_h1_counts.csv:
-	Rscript create_all_counts_per_proteome.R
+myco_5_counts.csv:
+	Rscript create_all_counts_per_proteome.R myco 5
 
 ################################################################################
 #
-# 2. RESULTS
+# 2. GENERAL
 #
 ################################################################################
 
-counts.csv:
-	Rscript merge_all_counts_per_proteome.R
+general.csv:
+	Rscript create_general.R
 
 ################################################################################
 # Create the CSV tables for the binders
@@ -91,8 +91,6 @@ fig_f_tmh_mhc1.png: counts.csv general.csv
 fig_f_tmh_mhc2.png: counts.csv general.csv
 	Rscript create_figure.R mhc2
 
-general.csv:
-	Rscript create_general.R
 
 update_packages:
 	Rscript -e 'remotes::install_github("richelbilderbeek/peregrine")'
