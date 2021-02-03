@@ -21,6 +21,7 @@ message("args: {", paste0(args, collapse = ", "), "}")
 
 if (1 == 2) {
   args <- c("human", "5")
+  args <- c("covid", "5")
 }
 testthat::expect_equal(length(args), 2)
 target_name <- args[1]
@@ -175,6 +176,15 @@ for (haplotype_index in seq_along(haplotypes)) {
   f_binders_that_overlap_with_tmh <- sum(t$overlap_with_tmh & t$is_binder) / sum(t$is_binder)
   message("f_binders_that_overlap_with_tmh: ", f_binders_that_overlap_with_tmh)
 }
+
+
+t <- dplyr::bind_rows(tibbles)
+testthat::expect_equal(
+  names(t),
+  c("name", "n_binders", "n_binders_tmh", "n_spots", "n_spots_tmh", "haplotype")
+)
+# We have only kept the proteins that do have a TMH
+testthat::expect_true(all(t$n_spots_tmh > 0))
 
 readr::write_csv(
   dplyr::bind_rows(tibbles),

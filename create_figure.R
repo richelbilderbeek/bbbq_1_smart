@@ -22,7 +22,7 @@ suppressPackageStartupMessages({
 
 args <- commandArgs(trailingOnly = TRUE)
 if (1 == 2) {
-  args <- c("mhc1", "5")
+  args <- c("mhc1", "2")
 }
 testthat::expect_equal(length(args), 2)
 message("Running with arguments {", paste0(args, collapse = ", "), "}")

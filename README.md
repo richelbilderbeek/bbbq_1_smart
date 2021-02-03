@@ -25,8 +25,11 @@ make
 h1            |p1          |11         |5              |100      |20
 h1            |p2          |12         |4              |10       |2
 
-Note that `n_spots` and `n_spots_tmh` can vary, 
-due to MHC class-dependent epitope lengths.
+Note that:
+
+ * `n_spots` and `n_spots_tmh` can vary, due to MHC class-dependent epitope lengths.
+ * we only keep track of the membrane proteins, `n_spots_tmh` will thus be
+   always greater than zero
 
 ```
 Rscript create_all_counts_per_proteome.R [target] [haplotype] [percentage]
@@ -39,6 +42,11 @@ Rscript create_all_counts_per_proteome.R human 5
 --------|--------------|------------|-----------|---------------|---------|-------------
 covid   |h1            |p1          |11         |5              |100      |20
 covid   |h1            |p2          |12         |6              |101      |20
+
+Note that:
+
+ * we only keep track of the membrane proteins, `n_spots_tmh` will thus be
+   always greater than zero
 
 
 ```
@@ -56,6 +64,11 @@ HLA-A*01:01| 38.46 (5/13)| 25.00 (5/20)
 HLA-B*39:01| 100.00 (2/2)|58.33 (14/24)
 HLA-B*40:02|  55.56 (5/9)| 29.17 (7/24)
 
+Note that:
+
+ * up so far, we only kept track of the membrane proteins. 
+   Here we correct the percentages to include the full proteome again
+
 ```
 Rscript create_table_tmh_binders_mhc.R mhc1
 Rscript create_table_tmh_binders_mhc.R mhc2
@@ -63,31 +76,20 @@ Rscript create_table_tmh_binders_mhc.R mhc2
 
 ## Figures
 
-![](fig_f_tmh_mhc1_grid.png)
+Note that:
 
-![](fig_f_tmh_mhc1_grid_virus_only.png)
+ * up so far, we only kept track of the membrane proteins. 
+   Here we correct the percentages to include the full proteome again
+
+![](fig_f_tmh_mhc1_grid.png)
 
 ![](fig_f_tmh_mhc1_normalized.png)
 
-![](fig_f_tmh_mhc1_normalized_virus_only.png)
-
 ![](fig_f_tmh_mhc1.png)
-
-![](fig_f_tmh_mhc1_virus_only.png)
 
 ![](fig_f_tmh_mhc2_grid.png)
 
-![](fig_f_tmh_mhc2_grid_virus_only.png)
-
 ![](fig_f_tmh_mhc2_normalized.png)
-
-![](fig_f_tmh_mhc2_normalized_virus_only.png)
 
 ![](fig_f_tmh_mhc2.png)
 
-![](fig_f_tmh_mhc2_virus_only.png)
-
-
-## Downloads
-
- * [Perfect run for 2 percent](http://richelbilderbeek.nl/bbbq_1_smart_20201028.zip)
