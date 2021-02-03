@@ -42,17 +42,17 @@ message("target_filename: ", target_filename)
 topology_prediction_tool <- "tmhmm"
 message("topology_prediction_tool: ", topology_prediction_tool)
 bbbq::check_topology_prediction_tool(topology_prediction_tool)
-ic50_prediction_tool <- "EpitopePrediction"
-message("ic50_prediction_tool: ", ic50_prediction_tool)
-bbbq::check_ic50_prediction_tool(ic50_prediction_tool)
 
-haplotypes <- NA
-if (ic50_prediction_tool == "EpitopePrediction") {
-  message("Use MHC-I haplotypes")
-  haplotypes <- bbbq::get_mhc1_haplotypes()
-} else {
-  stop("Not implemented yet")
-}
+mhc1_ic50_prediction_tool <- "EpitopePrediction"
+message("mhc1_ic50_prediction_tool: ", mhc1_ic50_prediction_tool)
+bbbq::check_ic50_prediction_tool(mhc1_ic50_prediction_tool)
+
+mhc2_ic50_prediction_tool <- "mhcnuggetsr"
+message("mhc2_ic50_prediction_tool: ", mhc2_ic50_prediction_tool)
+bbbq::check_ic50_prediction_tool(mhc2_ic50_prediction_tool)
+
+haplotypes <- bbbq::get_mhc_haplotypes()
+message("haplotypes: ", paste0(haplotypes, collapse = ", "))
 
 if (target_name == "human") {
   proteome_type <- "representative"
@@ -85,11 +85,14 @@ for (haplotype_index in seq_along(haplotypes)) {
   if (haplotype %in% bbbq::get_mhc1_haplotypes()) {
     message("Haplotype is MHC-I")
     peptide_length <- 9
+    ic50_prediction_tool <- mhc1_ic50_prediction_tool
   } else {
     message("Haplotype is MHC-II")
     peptide_length <- 15
+    ic50_prediction_tool <- mhc2_ic50_prediction_tool
   }
   message("peptide_length: ", peptide_length)
+  message("ic50_prediction_tool: ", ic50_prediction_tool)
 
   # Remove the sequences and topologies that are too short
   testthat::expect_true(all(t_proteome$name == t_topology$name))
