@@ -13,7 +13,9 @@ all: \
   covid_2_counts.csv covid_5_counts.csv \
   human_2_counts.csv human_5_counts.csv \
   myco_2_counts.csv myco_5_counts.csv \
-  general.csv
+  general.csv \
+  counts_2.csv counts_5.csv \
+  fig_f_tmh_mhc1_2.png fig_f_tmh_mhc1_5.png
 
 #haplotypes_lut.csv \
 #     covid_proteins_lut.csv flua_proteins_lut.csv hepa_proteins_lut.csv \
@@ -62,6 +64,12 @@ myco_5_counts.csv:
 general.csv:
 	Rscript create_general.R
 
+counts_2.csv:
+	Rscript merge_all_counts_per_proteome.R 2
+
+counts_5.csv:
+	Rscript merge_all_counts_per_proteome.R 5
+
 ################################################################################
 # Create the CSV tables for the binders
 ################################################################################
@@ -87,8 +95,12 @@ table_f_tmh.latex:
 # Create the figures
 ################################################################################
 
-fig_f_tmh_mhc1.png: counts.csv general.csv
-	Rscript create_figure.R mhc1
+fig_f_tmh_mhc1_2.png: counts_2.csv general.csv
+	Rscript create_figure.R mhc1 2
+
+fig_f_tmh_mhc1_5.png: counts_5.csv general.csv
+	Rscript create_figure.R mhc1 5
+
 
 fig_f_tmh_mhc2.png: counts.csv general.csv
 	Rscript create_figure.R mhc2

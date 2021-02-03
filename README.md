@@ -33,11 +33,7 @@ Rscript create_all_counts_per_proteome.R [target] [haplotype] [percentage]
 Rscript create_all_counts_per_proteome.R human 5
 ```
 
-### 2. `make results`
-
-Run this after `make peregrine`
-
-### `counts.csv`
+### `counts_[percentage].csv`
 
 `target`|`haplotype_id`|`protein_id`|`n_binders`|`n_binders_tmh`|`n_spots`|`n_spots_tmh`
 --------|--------------|------------|-----------|---------------|---------|-------------
@@ -46,7 +42,8 @@ covid   |h1            |p2          |12         |6              |101      |20
 
 
 ```
-Rscript merge_all_counts.R
+Rscript merge_all_counts.R [percentage]
+Rscript merge_all_counts.R 5
 ```
 
 ### `table_tmh_binders_mhc[mhc_class].csv`
