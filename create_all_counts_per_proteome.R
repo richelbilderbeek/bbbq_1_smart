@@ -190,8 +190,8 @@ testthat::expect_equal(
   names(t),
   c("haplotype", "name", "n_binders", "n_binders_tmh", "n_spots", "n_spots_tmh")
 )
-# We have only kept the proteins that do have a TMH
-testthat::expect_true(all(t$n_spots_tmh > 0))
+
+testthat::expect_true(all(t$n_spots_tmh >= 0))
 
 readr::write_csv(
   dplyr::bind_rows(tibbles),
