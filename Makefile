@@ -15,7 +15,8 @@ all: \
   myco_2_counts.csv myco_5_counts.csv \
   general.csv \
   counts_2.csv counts_5.csv \
-  fig_f_tmh_mhc1_2.png fig_f_tmh_mhc1_5.png
+  fig_f_tmh_mhc1_2.png fig_f_tmh_mhc1_5.png \
+  fig_f_tmh_mhc2_2.png fig_f_tmh_mhc2_5.png
 
 #haplotypes_lut.csv \
 #     covid_proteins_lut.csv flua_proteins_lut.csv hepa_proteins_lut.csv \
@@ -101,9 +102,11 @@ fig_f_tmh_mhc1_2.png: counts_2.csv general.csv
 fig_f_tmh_mhc1_5.png: counts_5.csv general.csv
 	Rscript create_figure.R mhc1 5
 
+fig_f_tmh_mhc2_2.png: counts_2.csv general.csv
+	Rscript create_figure.R mhc2 2
 
-fig_f_tmh_mhc2.png: counts.csv general.csv
-	Rscript create_figure.R mhc2
+fig_f_tmh_mhc2_5.png: counts_5.csv general.csv
+	Rscript create_figure.R mhc2 5
 
 
 update_packages:
@@ -117,9 +120,5 @@ update_packages:
 	Rscript -e 'remotes::install_github("richelbilderbeek/bbbq", ref = "develop")'
 
 clean:
-	rm -f *.png *.latex *.pdf *.fasta
-	echo "I kept the CSV files, as these are hard to calculate"
-
-clean_all:
 	rm -f *.png *.latex *.pdf *.fasta *.csv
 
