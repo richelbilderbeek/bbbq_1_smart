@@ -10,13 +10,13 @@
 #   make results
 #
 all: \
-  covid_2_counts.csv covid_5_counts.csv \
-  human_2_counts.csv human_5_counts.csv \
-  myco_2_counts.csv myco_5_counts.csv \
+  covid_2_counts.csv \
+  human_2_counts.csv \
+  myco_2_counts.csv \
   general.csv \
-  counts_2.csv counts_5.csv \
-  fig_f_tmh_mhc1_2.png fig_f_tmh_mhc1_5.png \
-  fig_f_tmh_mhc2_2.png fig_f_tmh_mhc2_5.png
+  counts_2.csv \
+  fig_f_tmh_mhc1_2.png \
+  fig_f_tmh_mhc2_2.png
 
 #haplotypes_lut.csv \
 #     covid_proteins_lut.csv flua_proteins_lut.csv hepa_proteins_lut.csv \
@@ -41,20 +41,11 @@ all: \
 covid_2_counts.csv:
 	Rscript create_all_counts_per_proteome.R covid 2
 
-covid_5_counts.csv:
-	Rscript create_all_counts_per_proteome.R covid 5
-
-human_5_counts.csv:
-	Rscript create_all_counts_per_proteome.R human 5
-
 human_2_counts.csv:
 	Rscript create_all_counts_per_proteome.R human 2
 
 myco_2_counts.csv:
 	Rscript create_all_counts_per_proteome.R myco 2
-
-myco_5_counts.csv:
-	Rscript create_all_counts_per_proteome.R myco 5
 
 ################################################################################
 #
@@ -67,9 +58,6 @@ general.csv:
 
 counts_2.csv:
 	Rscript merge_all_counts_per_proteome.R 2
-
-counts_5.csv:
-	Rscript merge_all_counts_per_proteome.R 5
 
 ################################################################################
 # Create the CSV tables for the binders
@@ -99,15 +87,8 @@ table_f_tmh.latex:
 fig_f_tmh_mhc1_2.png: counts_2.csv general.csv
 	Rscript create_figure.R mhc1 2
 
-fig_f_tmh_mhc1_5.png: counts_5.csv general.csv
-	Rscript create_figure.R mhc1 5
-
 fig_f_tmh_mhc2_2.png: counts_2.csv general.csv
 	Rscript create_figure.R mhc2 2
-
-fig_f_tmh_mhc2_5.png: counts_5.csv general.csv
-	Rscript create_figure.R mhc2 5
-
 
 update_packages:
 	Rscript -e 'remotes::install_github("richelbilderbeek/peregrine")'
