@@ -20,8 +20,8 @@ args <- commandArgs(trailingOnly = TRUE)
 message("args: {", paste0(args, collapse = ", "), "}")
 
 if (1 == 2) {
-  args <- c("human", "5")
-  args <- c("covid", "5")
+  args <- c("human", "2")
+  args <- c("covid", "2")
 }
 testthat::expect_equal(length(args), 2)
 target_name <- args[1]
@@ -168,6 +168,7 @@ for (haplotype_index in seq_along(haplotypes)) {
   # Show counts per protein
   message(knitr::kable(head(t_counts)))
   t_counts$haplotype <- haplotype
+  t_counts <- dplyr::relocate(t_counts, haplotype)
   tibbles[[haplotype_index]] <- t_counts
 
   # Other debug info
@@ -184,7 +185,7 @@ for (haplotype_index in seq_along(haplotypes)) {
 t <- dplyr::bind_rows(tibbles)
 testthat::expect_equal(
   names(t),
-  c("name", "n_binders", "n_binders_tmh", "n_spots", "n_spots_tmh", "haplotype")
+  c("haplotype", "name", "n_binders", "n_binders_tmh", "n_spots", "n_spots_tmh")
 )
 # We have only kept the proteins that do have a TMH
 testthat::expect_true(all(t$n_spots_tmh > 0))

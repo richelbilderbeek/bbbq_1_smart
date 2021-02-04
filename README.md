@@ -20,7 +20,7 @@ make
 
 ### `[target]_[percentage]_counts.csv`
 
-`haplotype_id`|`protein_id`|`n_binders`|`n_binders_tmh`|`n_spots`|`n_spots_tmh`
+`haplotype`   |`name`      |`n_binders`|`n_binders_tmh`|`n_spots`|`n_spots_tmh`
 --------------|------------|-----------|---------------|---------|-------------
 h1            |p1          |11         |5              |100      |20
 h1            |p2          |12         |4              |10       |2
@@ -32,7 +32,7 @@ Note that:
    always greater than zero
 
 ```
-Rscript create_all_counts_per_proteome.R [target] [haplotype] [percentage]
+Rscript create_all_counts_per_proteome.R [target] [percentage]
 Rscript create_all_counts_per_proteome.R human 5
 ```
 
