@@ -102,12 +102,15 @@ for (haplotype_index in seq_along(haplotypes)) {
   testthat::expect_equal(nrow(t_proteome), nrow(t_topology))
   testthat::expect_true(all(t_proteome$name == t_topology$name))
 
-  # Keep only the sequences with a TMHs
-  keep_indices <- stringr::str_which(string = t_topology$sequence, pattern = "[mM]")
-  t_proteome <- t_proteome[keep_indices, ]
-  t_topology <- t_topology[keep_indices, ]
-  testthat::expect_equal(nrow(t_proteome), nrow(t_topology))
-  testthat::expect_true(all(t_proteome$name == t_topology$name))
+  if (1 == 2) {
+    # Keep only the sequences with a TMHs
+    # Thanks @fransbianchi for correcting me here
+    keep_indices <- stringr::str_which(string = t_topology$sequence, pattern = "[mM]")
+    t_proteome <- t_proteome[keep_indices, ]
+    t_topology <- t_topology[keep_indices, ]
+    testthat::expect_equal(nrow(t_proteome), nrow(t_topology))
+    testthat::expect_true(all(t_proteome$name == t_topology$name))
+  }
 
   # Keep only the sequences with the 20 standard amino acids
   regexp <- paste0("^[", paste0(Peptides::aaList(), collapse = ""), "]+$")
