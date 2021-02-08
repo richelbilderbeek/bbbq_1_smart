@@ -1,0 +1,52 @@
+\begin{table}
+
+\caption{\label{tab:ic50_binders_mhc2}IC50 values (in nM) per haplotype below which a peptide is considered a binder. percentage used: 2}
+\centering
+\begin{tabular}[t]{l|r|r|r}
+\hline
+haplotype & covid & human & myco\\
+\hline
+HLA-DRB1*0101 & 6.430 & 8.52 & 8.4000\\
+\hline
+HLA-DRB1*0301 & 111.965 & 176.28 & 139.8000\\
+\hline
+HLA-DRB1*0401 & 52.543 & 67.62 & 70.6500\\
+\hline
+HLA-DRB1*0405 & 46.284 & 52.60 & 67.4800\\
+\hline
+HLA-DRB1*0701 & 15.818 & 20.73 & 25.7500\\
+\hline
+HLA-DRB1*0802 & 116.356 & 152.83 & 75.5700\\
+\hline
+HLA-DRB1*0901 & 41.575 & 54.78 & 40.3900\\
+\hline
+HLA-DRB1*1101 & 28.099 & 31.46 & 38.1300\\
+\hline
+HLA-DRB1*1201 & 172.797 & 218.58 & 254.0700\\
+\hline
+HLA-DRB1*1302 & 20.970 & 39.76 & 33.4800\\
+\hline
+HLA-DRB1*1501 & 32.306 & 40.29 & 43.9900\\
+\hline
+HLA-DRB3*0101 & 196.412 & 330.07 & 232.8214\\
+\hline
+HLA-DRB3*0202 & 124.026 & 220.07 & 308.3014\\
+\hline
+HLA-DRB4*0101 & 46.003 & 49.42 & 61.1800\\
+\hline
+HLA-DRB5*0101 & 26.822 & 33.20 & 45.5400\\
+\hline
+HLA-DQA1*0501/DQB1*0201 & 202.996 & 226.88 & 183.4528\\
+\hline
+HLA-DQA1*0501/DQB1*0301 & 42.381 & 33.19 & 16.3314\\
+\hline
+HLA-DQA1*0301/DQB1*0302 & 512.634 & 522.72 & 415.8214\\
+\hline
+HLA-DQA1*0401/DQB1*0402 & 226.522 & 266.60 & 216.0714\\
+\hline
+HLA-DQA1*0101/DQB1*0501 & 624.950 & 768.68 & 1028.4256\\
+\hline
+HLA-DQA1*0102/DQB1*0602 & 110.160 & 121.45 & 77.8500\\
+\hline
+\end{tabular}
+\end{table}
