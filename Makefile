@@ -18,7 +18,8 @@ all: \
   table_f_tmh_2.latex \
   fig_f_tmh_mhc1_2.png \
   fig_f_tmh_mhc2_2.png \
-  table_ic50_binders_2.latex \
+  table_ic50_binders_mhc1_2.latex \
+  table_ic50_binders_mhc2_2.latex \
   table_tmh_binders_mhc1_2.latex \
   table_tmh_binders_mhc2_2.latex
 
@@ -64,8 +65,11 @@ table_tmh_binders_mhc2_2.latex: counts_2.csv create_table_tmh_binders_mhc.R
 ################################################################################
 
 # Easy and general table
-table_ic50_binders_2.latex: create_table_ic50_binders.R
-	Rscript create_table_ic50_binders.R 2
+table_ic50_binders_mhc1_2.latex: create_table_ic50_binders.R
+	Rscript create_table_ic50_binders.R mhc1 2%
+
+table_ic50_binders_mhc2_2.latex: create_table_ic50_binders.R
+	Rscript create_table_ic50_binders.R mhc2 2%
 
 table_f_tmh_2.latex: create_table_f_tmh.R
 	Rscript create_table_f_tmh.R 2
