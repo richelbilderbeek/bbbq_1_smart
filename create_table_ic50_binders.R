@@ -3,46 +3,67 @@
 #
 # Usage:
 #
-#  Rscript create_table_ic50_binders.R
+#  Rscript create_table_ic50_binders.R [percentage]
 #
-library(dplyr, warn.conflicts = FALSE)
-library(knitr, warn.conflicts = FALSE)
-library(testthat, warn.conflicts = FALSE)
+# Example:
+#
+#  Rscript create_table_ic50_binders.R 2
+#
+args <- commandArgs(trailingOnly = TRUE)
+if (1 == 2) {
+  args <- c("2")
+}
+testthat::expect_equal(length(args), 1)
+message("Running with arguments {", paste0(args, collapse = ", "), "}")
+percentage <- as.numeric(args[1])
+message("percentage: ", percentage)
 
-csv_target_filename <- "table_ic50_binders.csv"
+suppressPackageStartupMessages({
+  library(dplyr, warn.conflicts = FALSE)
+  library(knitr, warn.conflicts = FALSE)
+  library(testthat, warn.conflicts = FALSE)
+})
+
+csv_target_filename <- paste0("table_ic50_binders_", percentage, ".csv")
 message("'csv_target_filename': '", csv_target_filename, "'")
-latex_target_filename <- "table_ic50_binders.latex"
+latex_target_filename <- paste0("table_ic50_binders_", percentage, ".latex")
 message("'latex_target_filename': '", latex_target_filename, "'")
 
-percentile <- bbbq::get_ic50_percentile_binder()
-message("'percentile': '", percentile, "' (as hard-coded by BBBQ)")
-
-haplotypes_filename <- "haplotypes_lut.csv"
-message("'haplotypes_filename': '", haplotypes_filename, "'")
-testthat::expect_true(file.exists(haplotypes_filename))
-t_haplotypes <- readr::read_csv(
-  haplotypes_filename,
-  col_types = readr::cols(
-    haplotype = readr::col_character(),
-    mhc_class = readr::col_double(),
-    haplotype_id = readr::col_character()
-  )
+t <- tidyr::expand_grid(
+  target = c("covid", "human", "myco"),
+  haplotype = bbbq::get_mhc_haplotypes(),
+  mhc_class = NA,
+  peptide_length = NA,
+  ic50 = NA,
+  ic50_prediction_tool = ""
 )
 
-
-t <- t_haplotypes
-t$haplotype_id <- NULL
-t$ic50 <- NA
-
-
 for (i in seq_len(nrow(t))) {
-  t$ic50[i] <- mhcnpreds::get_ic50_threshold(
-    peptide_length = bbbq::get_mhc_peptide_length(t$mhc_class[i]),
-    mhc_haplotype = mhcnuggetsr::to_mhcnuggets_name(t$haplotype[i]),
-    percentile = percentile
-  )
+  if (t$haplotype[i] %in% bbbq::get_mhc1_haplotypes()) {
+    t$mhc_class[i] <- 1
+    t$peptide_length[i] <- 9
+    t$ic50_prediction_tool[i] <- "EpitopePrediction"
+  } else {
+    testthat::expect_true(t$haplotype[i] %in% bbbq::get_mhc2_haplotypes())
+    t$mhc_class[i] <- 2
+    t$peptide_length[i] <- 15
+    t$ic50_prediction_tool[i] <- "mhcnuggetsr"
+  }
 }
-t$mhc_class <- NULL
+t
+for (i in seq_len(nrow(t))) {
+  target_name <- t$target[i]
+  haplotype <- t$haplotype[i]
+  peptide_length <- t$peptide_length[i]
+  ic50_prediction_tool <- t$ic50_prediction_tool[i]
+  t_ic50s <- bbbq::get_ic50s_lut(
+    target_name = target_name,
+    haplotype = haplotype,
+    peptide_length = peptide_length,
+    ic50_prediction_tool = ic50_prediction_tool
+  )
+  t$ic50[i] <- as.numeric(quantile(x = t_ic50s$ic50, probs = percentage / 100))
+}
 
 readr::write_csv(t, csv_target_filename)
 
@@ -51,7 +72,7 @@ knitr::kable(
   caption = paste0(
     "IC50 values (in nM) per haplotype ",
     "below which a peptide is considered a binder. ",
-    "Percentile used: ", percentile
+    "percentage used: ", percentage
   ),
   label = "tab:ic50_binders"
 ) %>% cat(., file = latex_target_filename)

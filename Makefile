@@ -66,8 +66,8 @@ table_tmh_binders_mhc2.latex: counts_2.csv
 ################################################################################
 
 # Easy and general table
-table_ic50_binders.latex:
-	Rscript create_table_ic50_binders.R
+table_ic50_binders_2.latex:
+	Rscript create_table_ic50_binders.R 2
 
 table_f_tmh_2.latex:
 	Rscript create_table_f_tmh.R 2
