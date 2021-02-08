@@ -15,10 +15,10 @@ all: \
   human_2_counts.csv \
   general.csv \
   counts_2.csv \
+  table_f_tmh_2.latex \
   fig_f_tmh_mhc1_2.png \
   fig_f_tmh_mhc2_2.png
 
-#   table_f_tmh.latex \
 #     table_tmh_binders_mhc1.latex table_tmh_binders_mhc2.latex \
 #     table_ic50_binders.latex \
 #     table_f_tmh.latex \
@@ -69,8 +69,8 @@ table_tmh_binders_mhc2.latex: counts_2.csv
 table_ic50_binders.latex:
 	Rscript create_table_ic50_binders.R
 
-table_f_tmh.latex:
-	Rscript create_table_f_tmh.R
+table_f_tmh_2.latex:
+	Rscript create_table_f_tmh.R 2
 
 ################################################################################
 # Create the figures
