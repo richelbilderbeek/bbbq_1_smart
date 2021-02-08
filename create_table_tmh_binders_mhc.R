@@ -30,11 +30,14 @@ the_mhc_class <- mhc_class # Needed for filtering later
 haplotypes <- NA
 if (mhc_class == 1) {
   haplotypes <- bbbq::get_mhc1_haplotypes()
+  peptide_length <- 9
 } else {
   testthat::expect_equal(2, mhc_class)
   haplotypes <- bbbq::get_mhc2_haplotypes()
+  peptide_length <- 15
 }
-
+message("haplotypes: {", paste0(haplotypes, collapse = ", "), "}")
+message("peptide_length: ", peptide_length)
 
 target_csv_filename <- paste0("table_tmh_binders_mhc", mhc_class, "_", percentage, ".csv")
 message("target_csv_filename: '", target_csv_filename, "'")
@@ -109,7 +112,7 @@ knitr::kable(
   t_wide, "latex",
   caption = paste0(
     "Percentage of MHC-", as.roman(mhc_class), " ",
-    bbbq::get_mhc_peptide_length(mhc_class) ,"-mers overlapping with TMH. ",
+    peptide_length ,"-mers overlapping with TMH. ",
     "Values in brackets show the number of binders ",
     "that have at least one residue overlapping with a TMH (first value)",
     "as well as the number of binders (second value). ",
