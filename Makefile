@@ -18,11 +18,9 @@ all: \
   table_f_tmh_2.latex \
   fig_f_tmh_mhc1_2.png \
   fig_f_tmh_mhc2_2.png \
-  table_ic50_binders_2.latex
-
-#     table_tmh_binders_mhc1.latex table_tmh_binders_mhc2.latex \
-#     table_f_tmh.latex \
-#     fig_f_tmh_mhc1.png fig_f_tmh_mhc2.png general.csv create_figure.R
+  table_ic50_binders_2.latex \
+  table_tmh_binders_mhc1_2.latex \
+  table_tmh_binders_mhc2_2.latex
 
 ################################################################################
 #
@@ -30,13 +28,13 @@ all: \
 #
 ################################################################################
 
-covid_2_counts.csv:
+covid_2_counts.csv: create_all_counts_per_proteome.R
 	Rscript create_all_counts_per_proteome.R covid 2
 
-human_2_counts.csv:
+human_2_counts.csv: create_all_counts_per_proteome.R
 	Rscript create_all_counts_per_proteome.R human 2
 
-myco_2_counts.csv:
+myco_2_counts.csv: create_all_counts_per_proteome.R
 	Rscript create_all_counts_per_proteome.R myco 2
 
 ################################################################################
@@ -45,41 +43,41 @@ myco_2_counts.csv:
 #
 ################################################################################
 
-general.csv:
+general.csv: create_general.R
 	Rscript create_general.R
 
-counts_2.csv:
+counts_2.csv: merge_all_counts_per_proteome.R
 	Rscript merge_all_counts_per_proteome.R 2
 
 ################################################################################
 # Create the CSV tables for the binders
 ################################################################################
 
-table_tmh_binders_mhc1.latex: counts_2.csv
-	Rscript create_table_tmh_binders_mhc.R mhc1
+table_tmh_binders_mhc1_2.latex: counts_2.csv create_table_tmh_binders_mhc.R
+	Rscript create_table_tmh_binders_mhc.R mhc1 2
 
-table_tmh_binders_mhc2.latex: counts_2.csv
-	Rscript create_table_tmh_binders_mhc.R mhc2
+table_tmh_binders_mhc2_2.latex: counts_2.csv create_table_tmh_binders_mhc.R
+	Rscript create_table_tmh_binders_mhc.R mhc2 2
 
 ################################################################################
 # Create all LaTeX tables
 ################################################################################
 
 # Easy and general table
-table_ic50_binders_2.latex:
+table_ic50_binders_2.latex: create_table_ic50_binders.R
 	Rscript create_table_ic50_binders.R 2
 
-table_f_tmh_2.latex:
+table_f_tmh_2.latex: create_table_f_tmh.R
 	Rscript create_table_f_tmh.R 2
 
 ################################################################################
 # Create the figures
 ################################################################################
 
-fig_f_tmh_mhc1_2.png: counts_2.csv general.csv
+fig_f_tmh_mhc1_2.png: counts_2.csv general.csv create_figure.R
 	Rscript create_figure.R mhc1 2
 
-fig_f_tmh_mhc2_2.png: counts_2.csv general.csv
+fig_f_tmh_mhc2_2.png: counts_2.csv general.csv create_figure.R
 	Rscript create_figure.R mhc2 2
 
 update_packages:

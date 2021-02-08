@@ -1,0 +1,214 @@
+\begin{table}
+
+\caption{\label{tab:tab:ic50_binders}IC50 values (in nM) per haplotype below which a peptide is considered a binder. percentage used: 2}
+\centering
+\begin{tabular}[t]{l|l|r|r|r|l}
+\hline
+target & haplotype & mhc\_class & peptide\_length & ic50 & ic50\_prediction\_tool\\
+\hline
+covid & HLA-A*01:01 & 1 & 9 & 1470.5912 & EpitopePrediction\\
+\hline
+covid & HLA-A*02:01 & 1 & 9 & 118.9596 & EpitopePrediction\\
+\hline
+covid & HLA-A*03:01 & 1 & 9 & 537.0144 & EpitopePrediction\\
+\hline
+covid & HLA-A*24:02 & 1 & 9 & 984.8147 & EpitopePrediction\\
+\hline
+covid & HLA-A*26:01 & 1 & 9 & 1095.2591 & EpitopePrediction\\
+\hline
+covid & HLA-B*07:02 & 1 & 9 & 1215.7734 & EpitopePrediction\\
+\hline
+covid & HLA-B*08:01 & 1 & 9 & 886.5661 & EpitopePrediction\\
+\hline
+covid & HLA-B*18:01 & 1 & 9 & 921.4157 & EpitopePrediction\\
+\hline
+covid & HLA-B*27:05 & 1 & 9 & 1186.0963 & EpitopePrediction\\
+\hline
+covid & HLA-B*39:01 & 1 & 9 & 437.3506 & EpitopePrediction\\
+\hline
+covid & HLA-B*40:02 & 1 & 9 & 585.6308 & EpitopePrediction\\
+\hline
+covid & HLA-B*58:01 & 1 & 9 & 435.4693 & EpitopePrediction\\
+\hline
+covid & HLA-B*15:01 & 1 & 9 & 281.9129 & EpitopePrediction\\
+\hline
+covid & HLA-DRB1*0101 & 2 & 15 & 6.4300 & mhcnuggetsr\\
+\hline
+covid & HLA-DRB1*0301 & 2 & 15 & 111.9650 & mhcnuggetsr\\
+\hline
+covid & HLA-DRB1*0401 & 2 & 15 & 52.5430 & mhcnuggetsr\\
+\hline
+covid & HLA-DRB1*0405 & 2 & 15 & 46.2840 & mhcnuggetsr\\
+\hline
+covid & HLA-DRB1*0701 & 2 & 15 & 15.8180 & mhcnuggetsr\\
+\hline
+covid & HLA-DRB1*0802 & 2 & 15 & 116.3560 & mhcnuggetsr\\
+\hline
+covid & HLA-DRB1*0901 & 2 & 15 & 41.5750 & mhcnuggetsr\\
+\hline
+covid & HLA-DRB1*1101 & 2 & 15 & 28.0990 & mhcnuggetsr\\
+\hline
+covid & HLA-DRB1*1201 & 2 & 15 & 172.7970 & mhcnuggetsr\\
+\hline
+covid & HLA-DRB1*1302 & 2 & 15 & 20.9700 & mhcnuggetsr\\
+\hline
+covid & HLA-DRB1*1501 & 2 & 15 & 32.3060 & mhcnuggetsr\\
+\hline
+covid & HLA-DRB3*0101 & 2 & 15 & 196.4120 & mhcnuggetsr\\
+\hline
+covid & HLA-DRB3*0202 & 2 & 15 & 124.0260 & mhcnuggetsr\\
+\hline
+covid & HLA-DRB4*0101 & 2 & 15 & 46.0030 & mhcnuggetsr\\
+\hline
+covid & HLA-DRB5*0101 & 2 & 15 & 26.8220 & mhcnuggetsr\\
+\hline
+covid & HLA-DQA1*0501/DQB1*0201 & 2 & 15 & 202.9960 & mhcnuggetsr\\
+\hline
+covid & HLA-DQA1*0501/DQB1*0301 & 2 & 15 & 42.3810 & mhcnuggetsr\\
+\hline
+covid & HLA-DQA1*0301/DQB1*0302 & 2 & 15 & 512.6340 & mhcnuggetsr\\
+\hline
+covid & HLA-DQA1*0401/DQB1*0402 & 2 & 15 & 226.5220 & mhcnuggetsr\\
+\hline
+covid & HLA-DQA1*0101/DQB1*0501 & 2 & 15 & 624.9500 & mhcnuggetsr\\
+\hline
+covid & HLA-DQA1*0102/DQB1*0602 & 2 & 15 & 110.1600 & mhcnuggetsr\\
+\hline
+human & HLA-A*01:01 & 1 & 9 & 2545.9537 & EpitopePrediction\\
+\hline
+human & HLA-A*02:01 & 1 & 9 & 218.7274 & EpitopePrediction\\
+\hline
+human & HLA-A*03:01 & 1 & 9 & 804.7455 & EpitopePrediction\\
+\hline
+human & HLA-A*24:02 & 1 & 9 & 1590.0623 & EpitopePrediction\\
+\hline
+human & HLA-A*26:01 & 1 & 9 & 1771.6924 & EpitopePrediction\\
+\hline
+human & HLA-B*07:02 & 1 & 9 & 705.6514 & EpitopePrediction\\
+\hline
+human & HLA-B*08:01 & 1 & 9 & 883.0951 & EpitopePrediction\\
+\hline
+human & HLA-B*18:01 & 1 & 9 & 1063.2215 & EpitopePrediction\\
+\hline
+human & HLA-B*27:05 & 1 & 9 & 689.8815 & EpitopePrediction\\
+\hline
+human & HLA-B*39:01 & 1 & 9 & 484.3843 & EpitopePrediction\\
+\hline
+human & HLA-B*40:02 & 1 & 9 & 541.2392 & EpitopePrediction\\
+\hline
+human & HLA-B*58:01 & 1 & 9 & 591.0526 & EpitopePrediction\\
+\hline
+human & HLA-B*15:01 & 1 & 9 & 440.6541 & EpitopePrediction\\
+\hline
+human & HLA-DRB1*0101 & 2 & 15 & 8.5200 & mhcnuggetsr\\
+\hline
+human & HLA-DRB1*0301 & 2 & 15 & 176.2800 & mhcnuggetsr\\
+\hline
+human & HLA-DRB1*0401 & 2 & 15 & 67.6200 & mhcnuggetsr\\
+\hline
+human & HLA-DRB1*0405 & 2 & 15 & 52.6000 & mhcnuggetsr\\
+\hline
+human & HLA-DRB1*0701 & 2 & 15 & 20.7300 & mhcnuggetsr\\
+\hline
+human & HLA-DRB1*0802 & 2 & 15 & 152.8300 & mhcnuggetsr\\
+\hline
+human & HLA-DRB1*0901 & 2 & 15 & 54.7800 & mhcnuggetsr\\
+\hline
+human & HLA-DRB1*1101 & 2 & 15 & 31.4600 & mhcnuggetsr\\
+\hline
+human & HLA-DRB1*1201 & 2 & 15 & 218.5800 & mhcnuggetsr\\
+\hline
+human & HLA-DRB1*1302 & 2 & 15 & 39.7600 & mhcnuggetsr\\
+\hline
+human & HLA-DRB1*1501 & 2 & 15 & 40.2900 & mhcnuggetsr\\
+\hline
+human & HLA-DRB3*0101 & 2 & 15 & 330.0700 & mhcnuggetsr\\
+\hline
+human & HLA-DRB3*0202 & 2 & 15 & 220.0700 & mhcnuggetsr\\
+\hline
+human & HLA-DRB4*0101 & 2 & 15 & 49.4200 & mhcnuggetsr\\
+\hline
+human & HLA-DRB5*0101 & 2 & 15 & 33.2000 & mhcnuggetsr\\
+\hline
+human & HLA-DQA1*0501/DQB1*0201 & 2 & 15 & 226.8800 & mhcnuggetsr\\
+\hline
+human & HLA-DQA1*0501/DQB1*0301 & 2 & 15 & 33.1900 & mhcnuggetsr\\
+\hline
+human & HLA-DQA1*0301/DQB1*0302 & 2 & 15 & 522.7200 & mhcnuggetsr\\
+\hline
+human & HLA-DQA1*0401/DQB1*0402 & 2 & 15 & 266.6000 & mhcnuggetsr\\
+\hline
+human & HLA-DQA1*0101/DQB1*0501 & 2 & 15 & 768.6800 & mhcnuggetsr\\
+\hline
+human & HLA-DQA1*0102/DQB1*0602 & 2 & 15 & 121.4500 & mhcnuggetsr\\
+\hline
+myco & HLA-A*01:01 & 1 & 9 & 2812.1714 & EpitopePrediction\\
+\hline
+myco & HLA-A*02:01 & 1 & 9 & 186.7565 & EpitopePrediction\\
+\hline
+myco & HLA-A*03:01 & 1 & 9 & 1544.1073 & EpitopePrediction\\
+\hline
+myco & HLA-A*24:02 & 1 & 9 & 1971.8258 & EpitopePrediction\\
+\hline
+myco & HLA-A*26:01 & 1 & 9 & 1526.1101 & EpitopePrediction\\
+\hline
+myco & HLA-B*07:02 & 1 & 9 & 435.5361 & EpitopePrediction\\
+\hline
+myco & HLA-B*08:01 & 1 & 9 & 1023.2213 & EpitopePrediction\\
+\hline
+myco & HLA-B*18:01 & 1 & 9 & 1319.0445 & EpitopePrediction\\
+\hline
+myco & HLA-B*27:05 & 1 & 9 & 475.6130 & EpitopePrediction\\
+\hline
+myco & HLA-B*39:01 & 1 & 9 & 399.3873 & EpitopePrediction\\
+\hline
+myco & HLA-B*40:02 & 1 & 9 & 600.1688 & EpitopePrediction\\
+\hline
+myco & HLA-B*58:01 & 1 & 9 & 538.9063 & EpitopePrediction\\
+\hline
+myco & HLA-B*15:01 & 1 & 9 & 482.8369 & EpitopePrediction\\
+\hline
+myco & HLA-DRB1*0101 & 2 & 15 & 8.4000 & mhcnuggetsr\\
+\hline
+myco & HLA-DRB1*0301 & 2 & 15 & 139.8000 & mhcnuggetsr\\
+\hline
+myco & HLA-DRB1*0401 & 2 & 15 & 70.6500 & mhcnuggetsr\\
+\hline
+myco & HLA-DRB1*0405 & 2 & 15 & 67.4800 & mhcnuggetsr\\
+\hline
+myco & HLA-DRB1*0701 & 2 & 15 & 25.7500 & mhcnuggetsr\\
+\hline
+myco & HLA-DRB1*0802 & 2 & 15 & 75.5700 & mhcnuggetsr\\
+\hline
+myco & HLA-DRB1*0901 & 2 & 15 & 40.3900 & mhcnuggetsr\\
+\hline
+myco & HLA-DRB1*1101 & 2 & 15 & 38.1300 & mhcnuggetsr\\
+\hline
+myco & HLA-DRB1*1201 & 2 & 15 & 254.0700 & mhcnuggetsr\\
+\hline
+myco & HLA-DRB1*1302 & 2 & 15 & 33.4800 & mhcnuggetsr\\
+\hline
+myco & HLA-DRB1*1501 & 2 & 15 & 43.9900 & mhcnuggetsr\\
+\hline
+myco & HLA-DRB3*0101 & 2 & 15 & 232.8214 & mhcnuggetsr\\
+\hline
+myco & HLA-DRB3*0202 & 2 & 15 & 308.3014 & mhcnuggetsr\\
+\hline
+myco & HLA-DRB4*0101 & 2 & 15 & 61.1800 & mhcnuggetsr\\
+\hline
+myco & HLA-DRB5*0101 & 2 & 15 & 45.5400 & mhcnuggetsr\\
+\hline
+myco & HLA-DQA1*0501/DQB1*0201 & 2 & 15 & 183.4528 & mhcnuggetsr\\
+\hline
+myco & HLA-DQA1*0501/DQB1*0301 & 2 & 15 & 16.3314 & mhcnuggetsr\\
+\hline
+myco & HLA-DQA1*0301/DQB1*0302 & 2 & 15 & 415.8214 & mhcnuggetsr\\
+\hline
+myco & HLA-DQA1*0401/DQB1*0402 & 2 & 15 & 216.0714 & mhcnuggetsr\\
+\hline
+myco & HLA-DQA1*0101/DQB1*0501 & 2 & 15 & 1028.4256 & mhcnuggetsr\\
+\hline
+myco & HLA-DQA1*0102/DQB1*0602 & 2 & 15 & 77.8500 & mhcnuggetsr\\
+\hline
+\end{tabular}
+\end{table}
