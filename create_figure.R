@@ -37,11 +37,15 @@ message("mhc_class: ", mhc_class)
 haplotypes <- NA
 if (mhc_class == 1) {
   haplotypes <- bbbq::get_mhc1_haplotypes()
+  peptide_length <- 9
 } else {
   testthat::expect_equal(2, mhc_class)
   haplotypes <- bbbq::get_mhc2_haplotypes()
+  peptide_length <- 15
 }
 message("haplotypes: ", paste0(haplotypes, collapse = ", "))
+message("peptide_length: ", peptide_length)
+
 
 targets <- c("covid", "human", "myco")
 message("targets: ", paste0(targets, collapse = ", "))
@@ -61,8 +65,7 @@ t_general <- readr::read_csv(
   col_types = readr::cols(
     target = readr::col_character(),
     english_name = readr::col_character(),
-    n_tmh_tmhmm = readr::col_double(),
-    #n_tmh_pureseqtm = readr::col_double(),
+    n_tmh = readr::col_double(),
     n_aas = readr::col_double()
   )
 )
@@ -123,7 +126,7 @@ if (mhc_class == 1) roman_mhc_class <- "I"
 if (mhc_class == 2) roman_mhc_class <- "II"
 
 caption_text <- paste0(
-  "Horizontal lines: % ", bbbq::get_mhc_peptide_length(mhc_class) ,"-mers that overlaps with TMH in ",
+  "Horizontal lines: % ", peptide_length, "-mers that overlaps with TMH in ",
   "SARS-Cov2 (",     formatC(100.0 * mean(f_covid), digits = 3),"%), ",
   #"Influenza A (",   formatC(100.0 * mean(f_flua ), digits = 3),"%), ",
   #"Hepatitus A (",   formatC(100.0 * mean(f_hepa ), digits = 3),"%), \n",
@@ -155,7 +158,7 @@ p + ggsave(target_filename, width = 7, height = 7)
 # Facet labels
 facet_labels <- paste0(
   t_general$english_name, "\n",
-  "TMHs: ", t_general$n_tmh_tmhmm, "\n",
+  "TMHs: ", t_general$n_tmh, "\n",
   t_general$n_aas, " AAs"
 )
 names(facet_labels) <- t_general$target

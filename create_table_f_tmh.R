@@ -12,29 +12,18 @@
 #
 #  * File named 'table_f_tmh.latex'
 #
-library(testthat, warn.conflicts = FALSE)
-library(dplyr, warn.conflicts = FALSE)
-
+suppressPackageStartupMessages({
+  library(testthat, warn.conflicts = FALSE)
+  library(dplyr, warn.conflicts = FALSE)
+})
 target_latex_filename <- "table_f_tmh.latex"
 message("'target_latex_filename': '", target_latex_filename, "'")
 
-haplotypes_filename <- "haplotypes_lut.csv"
-message("'haplotypes_filename': '", haplotypes_filename, "'")
-testthat::expect_true(file.exists(haplotypes_filename))
-t_haplotypes <- readr::read_csv(
-  haplotypes_filename,
-  col_types = readr::cols(
-    haplotype = readr::col_character(),
-    mhc_class = readr::col_double(),
-    haplotype_id = readr::col_character()
-  )
-)
-
-t <- readr::read_csv("counts.csv",
+t <- readr::read_csv("counts_2.csv",
   col_types = readr::cols(
     target = readr::col_character(),
-    haplotype_id = readr::col_character(),
-    protein_id = readr::col_character(),
+    haplotype = readr::col_character(),
+    name = readr::col_character(),
     n_binders = readr::col_skip(),
     n_binders_tmh = readr::col_skip(),
     n_spots = readr::col_double(),

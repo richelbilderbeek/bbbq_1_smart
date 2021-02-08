@@ -13,13 +13,12 @@ all: \
   covid_2_counts.csv \
   myco_2_counts.csv \
   human_2_counts.csv \
-  general.csv
-
-human: \
+  general.csv \
   counts_2.csv \
   fig_f_tmh_mhc1_2.png \
   fig_f_tmh_mhc2_2.png
 
+#   table_f_tmh.latex \
 #     table_tmh_binders_mhc1.latex table_tmh_binders_mhc2.latex \
 #     table_ic50_binders.latex \
 #     table_f_tmh.latex \
@@ -56,10 +55,10 @@ counts_2.csv:
 # Create the CSV tables for the binders
 ################################################################################
 
-table_tmh_binders_mhc1.latex: counts.csv
+table_tmh_binders_mhc1.latex: counts_2.csv
 	Rscript create_table_tmh_binders_mhc.R mhc1
 
-table_tmh_binders_mhc2.latex: counts.csv
+table_tmh_binders_mhc2.latex: counts_2.csv
 	Rscript create_table_tmh_binders_mhc.R mhc2
 
 ################################################################################
@@ -67,7 +66,7 @@ table_tmh_binders_mhc2.latex: counts.csv
 ################################################################################
 
 # Easy and general table
-table_ic50_binders.latex: haplotypes_lut.csv
+table_ic50_binders.latex:
 	Rscript create_table_ic50_binders.R
 
 table_f_tmh.latex:
