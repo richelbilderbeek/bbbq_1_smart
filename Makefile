@@ -17,10 +17,10 @@ all: \
   counts_2.csv \
   table_f_tmh_2.latex \
   fig_f_tmh_mhc1_2.png \
-  fig_f_tmh_mhc2_2.png
+  fig_f_tmh_mhc2_2.png \
+  table_ic50_binders_2.latex
 
 #     table_tmh_binders_mhc1.latex table_tmh_binders_mhc2.latex \
-#     table_ic50_binders.latex \
 #     table_f_tmh.latex \
 #     fig_f_tmh_mhc1.png fig_f_tmh_mhc2.png general.csv create_figure.R
 
