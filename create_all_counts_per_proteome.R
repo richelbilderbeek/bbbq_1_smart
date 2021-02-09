@@ -20,15 +20,19 @@ args <- commandArgs(trailingOnly = TRUE)
 message("args: {", paste0(args, collapse = ", "), "}")
 
 if (1 == 2) {
-  args <- c("human", "2")
-  args <- c("covid", "2")
+  args <- c("human", "2%")
+  args <- c("covid", "2%")
 }
 testthat::expect_equal(length(args), 2)
 target_name <- args[1]
 message("target_name: ", target_name)
 bbbq::check_target_name(target_name)
-percentage <- as.numeric(args[2]) # use percentage values for filename
+
+testthat::expect_true(nchar(args[2]) > 1)
+testthat::expect_equal("%", stringr::str_sub(args[2], nchar(args[2]), nchar(args[2])))
+percentage <- as.numeric(stringr::str_sub(args[2], 1, nchar(args[2]) - 1))
 message("percentage: ", percentage)
+
 testthat::expect_true(percentage >= 0)
 testthat::expect_true(percentage <= 100)
 testthat::expect_true(percentage / 100 >= 0.0)
@@ -88,7 +92,7 @@ for (haplotype_index in seq_along(haplotypes)) {
     ic50_prediction_tool <- mhc1_ic50_prediction_tool
   } else {
     message("Haplotype is MHC-II")
-    peptide_length <- 15
+    peptide_length <- 14
     ic50_prediction_tool <- mhc2_ic50_prediction_tool
   }
   message("peptide_length: ", peptide_length)

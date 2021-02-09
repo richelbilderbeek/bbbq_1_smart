@@ -43,7 +43,7 @@ if (mhc_class == 1) {
 } else {
   testthat::expect_equal(2, mhc_class)
   haplotypes <- bbbq::get_mhc2_haplotypes()
-  peptide_length <- 15
+  peptide_length <- 14
   ic50_prediction_tool <- "mhcnuggetsr"
 }
 message("haplotypes: {", paste0(haplotypes, collapse = ", "), "}")

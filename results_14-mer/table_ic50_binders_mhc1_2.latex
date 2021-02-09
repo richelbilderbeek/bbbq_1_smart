@@ -1,0 +1,36 @@
+\begin{table}
+
+\caption{\label{tab:ic50_binders_mhc1}IC50 values (in nM) per haplotype below which a peptide is considered a binder. percentage used: 2}
+\centering
+\begin{tabular}[t]{l|r|r|r}
+\hline
+haplotype & covid & human & myco\\
+\hline
+HLA-A*01:01 & 1470.5912 & 2545.9537 & 2812.1714\\
+\hline
+HLA-A*02:01 & 118.9596 & 218.7274 & 186.7565\\
+\hline
+HLA-A*03:01 & 537.0144 & 804.7455 & 1544.1073\\
+\hline
+HLA-A*24:02 & 984.8147 & 1590.0623 & 1971.8258\\
+\hline
+HLA-A*26:01 & 1095.2591 & 1771.6924 & 1526.1101\\
+\hline
+HLA-B*07:02 & 1215.7734 & 705.6514 & 435.5361\\
+\hline
+HLA-B*08:01 & 886.5661 & 883.0951 & 1023.2213\\
+\hline
+HLA-B*18:01 & 921.4157 & 1063.2215 & 1319.0445\\
+\hline
+HLA-B*27:05 & 1186.0963 & 689.8815 & 475.6130\\
+\hline
+HLA-B*39:01 & 437.3506 & 484.3843 & 399.3873\\
+\hline
+HLA-B*40:02 & 585.6308 & 541.2392 & 600.1688\\
+\hline
+HLA-B*58:01 & 435.4693 & 591.0526 & 538.9063\\
+\hline
+HLA-B*15:01 & 281.9129 & 440.6541 & 482.8369\\
+\hline
+\end{tabular}
+\end{table}
