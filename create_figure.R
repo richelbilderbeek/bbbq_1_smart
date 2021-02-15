@@ -23,6 +23,7 @@ suppressPackageStartupMessages({
 args <- commandArgs(trailingOnly = TRUE)
 if (1 == 2) {
   args <- c("mhc1", "2")
+  args <- c("mhc2", "2")
 }
 testthat::expect_equal(length(args), 2)
 message("Running with arguments {", paste0(args, collapse = ", "), "}")
@@ -121,9 +122,40 @@ f_myco  <- t_coincidence$f_tmh[t_coincidence$target == "myco"]
 #f_polio <- t_coincidence$f_tmh[t_coincidence$target == "polio"]
 #f_rhino <- t_coincidence$f_tmh[t_coincidence$target == "rhino"]
 
-roman_mhc_class <- NA
-if (mhc_class == 1) roman_mhc_class <- "I"
-if (mhc_class == 2) roman_mhc_class <- "II"
+roman_mhc_class <- as.character(as.roman(mhc_class))
+testthat::expect_true(
+  mhc_class == 1 && roman_mhc_class == "I" ||
+  mhc_class == 2 && roman_mhc_class == "II"
+)
+
+# Humans-only, to compare with other studies
+ggplot(
+  t_tmh_binders %>% dplyr::filter(target == "human"),
+  aes(x = haplotype, y = f_tmh)
+) +
+  geom_col(position = position_dodge(), color = "#000000") +
+  xlab(paste0("MHC-", roman_mhc_class, " HLA haplotype")) +
+  ylab("Epitopes overlapping \nwith transmembrane helix") +
+  scale_y_continuous(
+    labels = scales::percent_format(accuracy = 2),
+    breaks = seq(0.0, 1.0, by = 0.1),
+    minor_breaks = seq(0.0, 1.0, by = 0.1)
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  geom_hline(aes(yintercept = f_human), lty = "dashed") +
+  labs(
+    title = "% epitopes that overlap with TMH per haplotype",
+    caption = paste0(
+      "Dashed horizontal line: % ", peptide_length,
+      "-mers that overlaps with TMH: ",
+      formatC(100.0 * mean(f_human), digits = 3),"%"
+    )
+  ) + ggsave(
+    paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_human.png"),
+    width = 7,
+    height = 7
+  )
+
 
 caption_text <- paste0(
   "Horizontal lines: % ", peptide_length, "-mers that overlaps with TMH in ",
