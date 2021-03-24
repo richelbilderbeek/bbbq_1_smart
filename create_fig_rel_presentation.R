@@ -1,0 +1,145 @@
+# Creates a figure from 'table_1.csv' or 'table_2.csv'
+# to show the measured the number of binders and the
+# number of binders that are TMH
+#
+# Usage:
+#
+#  Rscript create_fig_rel_presentation.R
+#
+#  * [MHC] is both 'mhc1' and 'mhc2'
+#  * [percentage] is 2
+#
+#  Rscript create_fig_rel_presentation.R
+#
+suppressPackageStartupMessages({
+  library(dplyr, warn.conflicts = FALSE)
+  library(testthat, warn.conflicts = FALSE)
+  library(ggplot2, quietly = TRUE)
+})
+
+percentage <- 2
+
+general_filename <- "general.csv"
+message("general_filename: '", general_filename, "'")
+testthat::expect_true(file.exists(general_filename))
+t_general <- readr::read_csv(
+  general_filename,
+  col_types = readr::cols(
+    target = readr::col_character(),
+    english_name = readr::col_character(),
+    n_tmh = readr::col_double(),
+    n_aas = readr::col_double()
+  )
+)
+
+table_filename <- paste0("counts_", percentage, ".csv")
+message("table_filename: '", table_filename, "'")
+testthat::expect_true(file.exists(table_filename))
+t_tmh_binders_all <- readr::read_csv(
+  table_filename,
+  col_types = readr::cols(
+    target = readr::col_character(),
+    haplotype = readr::col_character(),
+    name = readr::col_character(),
+    n_binders = readr::col_double(),
+    n_binders_tmh = readr::col_double(),
+    n_spots = readr::col_double(),
+    n_spots_tmh = readr::col_double()
+  )
+)
+
+# Only keep the human proteome
+t_tmh_binders_human <- t_tmh_binders_all %>% filter(target == "human")
+
+# Add the MHC class
+t_tmh_binders_human$mhc_class <- NA
+t_tmh_binders_human$mhc_class[
+  t_tmh_binders_human$haplotype %in% bbbq::get_mhc1_haplotypes()
+] <- 1
+t_tmh_binders_human$mhc_class[
+  t_tmh_binders_human$haplotype %in% bbbq::get_mhc2_haplotypes()
+] <- 2
+testthat::expect_equal(0, sum(is.na(t_tmh_binders_human$mhc_class)))
+t_tmh_binders_human$mhc_class <- as.factor(t_tmh_binders_human$mhc_class)
+t_tmh_binders_human$mhc_class <- forcats::fct_recode(
+  t_tmh_binders_human$mhc_class,
+  "I" = "1",
+  "II" = "2"
+)
+
+
+# Group all proteins
+t_tmh_binders <- t_tmh_binders_human %>% dplyr::group_by(mhc_class, haplotype) %>%
+    dplyr::summarize(
+      n_binders = sum(n_binders, na.rm = TRUE),
+      n_binders_tmh = sum(n_binders_tmh, na.rm = TRUE),
+      n_spots = sum(n_spots, na.rm = TRUE),
+      n_spots_tmh = sum(n_spots_tmh, na.rm = TRUE),
+      .groups = "drop"
+    )
+t_tmh_binders$f_tmh_observed <- t_tmh_binders$n_binders_tmh / t_tmh_binders$n_binders
+t_tmh_binders$f_tmh_chance <- t_tmh_binders$n_spots_tmh / t_tmh_binders$n_spots
+t_tmh_binders$haplotype <- as.factor(t_tmh_binders$haplotype)
+t_tmh_binders$normalized_f_tmh <- t_tmh_binders$f_tmh_observed / t_tmh_binders$f_tmh_chance
+
+p1 <- ggplot(t_tmh_binders, aes(x = haplotype, y = normalized_f_tmh, fill = mhc_class)) +
+  geom_col(position = position_dodge(), color = "#000000") +
+  xlab(paste0("Haplotype")) +
+  ylab("Normalized epitopes overlapping \nwith transmembrane helix") +
+  scale_y_continuous() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  geom_hline(aes(yintercept = 1), lty = "dashed") +
+  labs(
+    title = "Normalized % epitopes that overlap with TMH per haplotype",
+    caption = glue::glue(
+      "Dashed line: normalized expected percentage of epitopes ",
+      "that have one residue overlapping with a TMH"
+    ),
+    fill = "MHC class"
+  )
+p1
+
+
+t_per_mhc_class <- t_tmh_binders %>%
+  dplyr::group_by(mhc_class) %>%
+  dplyr::summarise(
+    mean_f_tmh_observed = mean(normalized_f_tmh),
+    f_tmh_observed_se = stats::sd(normalized_f_tmh)/sqrt(dplyr::n())
+  )
+t_per_mhc_class$mhc_class <- as.factor(t_per_mhc_class$mhc_class)
+t_per_mhc_class$mhc_class <- forcats::fct_recode(
+  t_per_mhc_class$mhc_class,
+  "I" = "1",
+  "II" = "2"
+)
+
+p2 <- ggplot(t_per_mhc_class, aes(x = mhc_class, y = mean_f_tmh_observed, fill = mhc_class)) +
+  geom_col(position = position_dodge(), color = "#000000") +
+  ggplot2::geom_text(
+    ggplot2::aes(
+      y = 0.0,
+      label = format(mean_f_tmh_observed, digits = 3)
+    ),
+    vjust = -0.5
+  ) +
+  geom_errorbar(
+    aes(
+      x = mhc_class,
+      ymin = mean_f_tmh_observed - f_tmh_observed_se,
+      ymax = mean_f_tmh_observed + f_tmh_observed_se
+    ),
+    width = 0.4
+  ) +
+  xlab("MHC class") +
+  ylab("Normalized epitopes overlapping \nwith transmembrane helix") +
+  scale_y_continuous() +
+  geom_hline(aes(yintercept = 1), lty = "dashed") +
+  labs(
+    title = "Normalized % epitopes that overlap with TMH per MHC class",
+    caption = glue::glue(
+      "Dashed line: normalized expected percentage of epitopes ",
+      "that have one residue overlapping with a TMH"
+    ),
+    fill = "MHC class"
+  )
+p2
