@@ -1,6 +1,5 @@
-# Creates a figure from 'table_1.csv' or 'table_2.csv'
-# to show the measured the number of binders and the
-# number of binders that are TMH
+# Plot the relative over-presentation of TMH-derived epitopes
+# between MCH-I and MHC-II for the different targets
 #
 # Usage:
 #
@@ -48,28 +47,26 @@ t_tmh_binders_all <- readr::read_csv(
   )
 )
 
-# Only keep the human proteome
-t_tmh_binders_human <- t_tmh_binders_all %>% filter(target == "human")
-
 # Add the MHC class
-t_tmh_binders_human$mhc_class <- NA
-t_tmh_binders_human$mhc_class[
-  t_tmh_binders_human$haplotype %in% bbbq::get_mhc1_haplotypes()
+t_tmh_binders_all$mhc_class <- NA
+t_tmh_binders_all$mhc_class[
+  t_tmh_binders_all$haplotype %in% bbbq::get_mhc1_haplotypes()
 ] <- 1
-t_tmh_binders_human$mhc_class[
-  t_tmh_binders_human$haplotype %in% bbbq::get_mhc2_haplotypes()
+t_tmh_binders_all$mhc_class[
+  t_tmh_binders_all$haplotype %in% bbbq::get_mhc2_haplotypes()
 ] <- 2
-testthat::expect_equal(0, sum(is.na(t_tmh_binders_human$mhc_class)))
-t_tmh_binders_human$mhc_class <- as.factor(t_tmh_binders_human$mhc_class)
-t_tmh_binders_human$mhc_class <- forcats::fct_recode(
-  t_tmh_binders_human$mhc_class,
+testthat::expect_equal(0, sum(is.na(t_tmh_binders_all$mhc_class)))
+t_tmh_binders_all$mhc_class <- as.factor(t_tmh_binders_all$mhc_class)
+t_tmh_binders_all$mhc_class <- forcats::fct_recode(
+  t_tmh_binders_all$mhc_class,
   "I" = "1",
   "II" = "2"
 )
 
 
 # Group all proteins
-t_tmh_binders <- t_tmh_binders_human %>% dplyr::group_by(mhc_class, haplotype) %>%
+t_tmh_binders <- t_tmh_binders_all %>%
+    dplyr::group_by(target, mhc_class, haplotype) %>%
     dplyr::summarize(
       n_binders = sum(n_binders, na.rm = TRUE),
       n_binders_tmh = sum(n_binders_tmh, na.rm = TRUE),
@@ -84,6 +81,7 @@ t_tmh_binders$normalized_f_tmh <- t_tmh_binders$f_tmh_observed / t_tmh_binders$f
 
 p1 <- ggplot(t_tmh_binders, aes(x = haplotype, y = normalized_f_tmh, fill = mhc_class)) +
   geom_col(position = position_dodge(), color = "#000000") +
+  ggplot2::facet_grid(target ~ .) +
   xlab(paste0("Haplotype")) +
   ylab("Normalized epitopes overlapping \nwith transmembrane helix") +
   scale_y_continuous() +
@@ -101,16 +99,17 @@ p1
 
 
 t_per_mhc_class <- t_tmh_binders %>%
-  dplyr::group_by(mhc_class) %>%
+  dplyr::group_by(target, mhc_class) %>%
   dplyr::summarise(
     mean_f_tmh_observed = mean(normalized_f_tmh),
-    f_tmh_observed_se = stats::sd(normalized_f_tmh)/sqrt(dplyr::n())
+    f_tmh_observed_se = stats::sd(normalized_f_tmh)/sqrt(dplyr::n()),
+    .groups = "drop"
   )
-t_per_mhc_class$mhc_class <- as.factor(t_per_mhc_class$mhc_class)
-t_per_mhc_class$mhc_class <- forcats::fct_recode(
-  t_per_mhc_class$mhc_class,
-  "I" = "1",
-  "II" = "2"
+
+target_to_english_lut <- c(
+  covid = "SARS-CoV-2",
+  human = "Human",
+  myco = "MTb"
 )
 
 p2 <- ggplot(t_per_mhc_class, aes(x = mhc_class, y = mean_f_tmh_observed, fill = mhc_class)) +
@@ -130,6 +129,10 @@ p2 <- ggplot(t_per_mhc_class, aes(x = mhc_class, y = mean_f_tmh_observed, fill =
     ),
     width = 0.4
   ) +
+  ggplot2::facet_grid(
+    target ~ .,
+    labeller = ggplot2::labeller(target = target_to_english_lut)
+  ) +
   xlab("MHC class") +
   ylab("Normalized epitopes overlapping \nwith transmembrane helix") +
   scale_y_continuous() +
@@ -143,3 +146,9 @@ p2 <- ggplot(t_per_mhc_class, aes(x = mhc_class, y = mean_f_tmh_observed, fill =
     fill = "MHC class"
   )
 p2
+
+p2 + ggplot2::ggsave(
+  filename = "~/fig_rel_presentation.png",
+  width = 7,
+  height = 7
+)
