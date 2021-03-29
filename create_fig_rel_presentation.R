@@ -79,9 +79,18 @@ t_tmh_binders$f_tmh_chance <- t_tmh_binders$n_spots_tmh / t_tmh_binders$n_spots
 t_tmh_binders$haplotype <- as.factor(t_tmh_binders$haplotype)
 t_tmh_binders$normalized_f_tmh <- t_tmh_binders$f_tmh_observed / t_tmh_binders$f_tmh_chance
 
+target_to_english_lut <- c(
+  covid = "SARS-CoV-2",
+  human = "Human",
+  myco = "MTb"
+)
+
 p1 <- ggplot(t_tmh_binders, aes(x = haplotype, y = normalized_f_tmh, fill = mhc_class)) +
   geom_col(position = position_dodge(), color = "#000000") +
-  ggplot2::facet_grid(target ~ .) +
+  ggplot2::facet_grid(
+    target ~ . ,
+    labeller = ggplot2::labeller(target = target_to_english_lut)
+  ) +
   xlab(paste0("Haplotype")) +
   ylab("Normalized epitopes overlapping \nwith transmembrane helix") +
   scale_y_continuous() +
@@ -97,6 +106,12 @@ p1 <- ggplot(t_tmh_binders, aes(x = haplotype, y = normalized_f_tmh, fill = mhc_
   )
 p1
 
+p1 + ggplot2::ggsave(
+  filename = "~/fig_rel_presentation_per_haplotype.png",
+  width = 7,
+  height = 7
+)
+
 
 t_per_mhc_class <- t_tmh_binders %>%
   dplyr::group_by(target, mhc_class) %>%
@@ -106,21 +121,8 @@ t_per_mhc_class <- t_tmh_binders %>%
     .groups = "drop"
   )
 
-target_to_english_lut <- c(
-  covid = "SARS-CoV-2",
-  human = "Human",
-  myco = "MTb"
-)
-
-p2 <- ggplot(t_per_mhc_class, aes(x = mhc_class, y = mean_f_tmh_observed, fill = mhc_class)) +
-  geom_col(position = position_dodge(), color = "#000000") +
-  ggplot2::geom_text(
-    ggplot2::aes(
-      y = 0.0,
-      label = format(mean_f_tmh_observed, digits = 3)
-    ),
-    vjust = -0.5
-  ) +
+p2 <- ggplot(t_per_mhc_class, aes(x = mhc_class, y = mean_f_tmh_observed)) +
+  geom_col(position = position_dodge(), fill = "#BBBBBB") +
   geom_errorbar(
     aes(
       x = mhc_class,
@@ -129,21 +131,32 @@ p2 <- ggplot(t_per_mhc_class, aes(x = mhc_class, y = mean_f_tmh_observed, fill =
     ),
     width = 0.4
   ) +
+  # ggplot2::geom_text(
+  #   ggplot2::aes(
+  #     y = 0.0,
+  #     label = format(mean_f_tmh_observed, digits = 3)
+  #   ),
+  #   vjust = -0.5
+  # ) +
   ggplot2::facet_grid(
     target ~ .,
     labeller = ggplot2::labeller(target = target_to_english_lut)
   ) +
   xlab("MHC class") +
-  ylab("Normalized epitopes overlapping \nwith transmembrane helix") +
+  ylab("Normalized epitopes overlapping with TMH") +
   scale_y_continuous() +
   geom_hline(aes(yintercept = 1), lty = "dashed") +
   labs(
     title = "Normalized % epitopes that overlap with TMH per MHC class",
-    caption = glue::glue(
-      "Dashed line: normalized expected percentage of epitopes ",
-      "that have one residue overlapping with a TMH"
-    ),
     fill = "MHC class"
+  ) + ggplot2::theme_bw() +
+  ggplot2::theme(axis.line = ggplot2::element_line(colour = "black"),
+    panel.grid.major = ggplot2::element_blank(),
+    panel.grid.minor = ggplot2::element_blank(),
+    panel.border = ggplot2::element_blank(),
+    panel.background = ggplot2::element_blank(),
+    legend.key = ggplot2::element_blank(),
+    strip.background = element_rect(colour="white", fill="#FFFFFF")
   )
 p2
 
