@@ -123,10 +123,11 @@ ggplot(
   t_tmh_binders,
   aes(x = haplotype, y = f_tmh)
 ) +
-  geom_col(position = position_dodge(), fill = "#BBBBBB") +
+  ggplot2::geom_col(position = position_dodge(), fill = "#BBBBBB", width = 0.9) +
   ggplot2::facet_grid(
     target ~ mhc_class,
     scales = "free_x",
+    space = "free_x",
     labeller = ggplot2::labeller(
       mhc_class = c(I = "MHC-I", II = "MHC-II"),
       target = c(covid = "SARS-CoV-2", human = "Human", myco = "MTb")
@@ -139,11 +140,11 @@ ggplot(
     breaks = seq(0.0, 1.0, by = 0.1),
     minor_breaks = seq(0.0, 1.0, by = 0.1)
   ) +
-  geom_hline(data = t_intercepts, aes(yintercept = f_tmh), color = "red") +
+  bbbq::geom_hline(data = t_intercepts, aes(yintercept = f_tmh), color = "red") +
   bbbq::get_bbbq_theme() +
   ggplot2::theme(axis.line = ggplot2::element_line(colour = "black"),
     axis.text.x = element_text(angle = 90, hjust = 1)
-  ) + ggplot2::theme(text = element_text(size = 14)) +
+  ) + ggplot2::theme(text = element_text(size = 17)) +
   ggsave(
     paste0("fig_f_tmh_", percentage, "_panel.png"),
     width = 7,
