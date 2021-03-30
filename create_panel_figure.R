@@ -20,26 +20,11 @@ suppressPackageStartupMessages({
 })
 
 args <- commandArgs(trailingOnly = TRUE)
-if (1 == 2) {
-  args <- c("2")
-}
+args <- c("2")
 testthat::expect_equal(length(args), 1)
 message("Running with arguments {", paste0(args, collapse = ", "), "}")
 percentage <- as.numeric(args[1])
 message("percentage: ", percentage)
-
-# haplotypes <- NA
-# if (mhc_class == 1) {
-#   haplotypes <- bbbq::get_mhc1_haplotypes()
-#   peptide_length <- 9
-# } else {
-#   testthat::expect_equal(2, mhc_class)
-#   haplotypes <- bbbq::get_mhc2_haplotypes()
-#   peptide_length <- 14
-# }
-# message("haplotypes: ", paste0(haplotypes, collapse = ", "))
-# message("peptide_length: ", peptide_length)
-
 
 targets <- c("covid", "human", "myco")
 message("targets: ", paste0(targets, collapse = ", "))
@@ -141,31 +126,25 @@ ggplot(
   geom_col(position = position_dodge(), fill = "#BBBBBB") +
   ggplot2::facet_grid(
     target ~ mhc_class,
-    scales = "free",
+    scales = "free_x",
     labeller = ggplot2::labeller(
-      mhc_class = c(I = "MHC-1", II = "MHC-2"),
+      mhc_class = c(I = "MHC-I", II = "MHC-II"),
       target = c(covid = "SARS-CoV-2", human = "Human", myco = "MTb")
     )
   ) +
-  ylab("Epitopes overlapping with transmembrane helix") +
-  scale_y_continuous(
+  ggplot2::xlab("Haplotype") +
+  ggplot2::ylab("Epitopes overlapping with TMH") +
+  ggplot2::scale_y_continuous(
     labels = scales::percent_format(accuracy = 2),
     breaks = seq(0.0, 1.0, by = 0.1),
     minor_breaks = seq(0.0, 1.0, by = 0.1)
   ) +
   geom_hline(data = t_intercepts, aes(yintercept = f_tmh), color = "red") +
-  labs(
-    title = "% epitopes that overlap with TMH per haplotype"
-  ) + ggplot2::theme_bw() +
+  bbbq::get_bbbq_theme() +
   ggplot2::theme(axis.line = ggplot2::element_line(colour = "black"),
-    panel.grid.major = ggplot2::element_blank(),
-    panel.grid.minor = ggplot2::element_blank(),
-    panel.border = ggplot2::element_blank(),
-    panel.background = ggplot2::element_blank(),
-    legend.key = ggplot2::element_blank(),
-    strip.background = element_rect(colour="white", fill="#FFFFFF"),
     axis.text.x = element_text(angle = 90, hjust = 1)
-  ) + ggsave(
+  ) + ggplot2::theme(text = element_text(size = 14)) +
+  ggsave(
     paste0("fig_f_tmh_", percentage, "_panel.png"),
     width = 7,
     height = 7
