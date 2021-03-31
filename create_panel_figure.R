@@ -118,8 +118,7 @@ f_myco  <- t_coincidence$f_tmh[t_coincidence$target == "myco"]
 
 t_intercepts <- dplyr::select(t_coincidence, target, mhc_class, f_tmh)
 
-# Humans-only, to compare with other studies
-ggplot(
+ggplot2::ggplot(
   t_tmh_binders,
   aes(x = haplotype, y = f_tmh)
 ) +
@@ -140,13 +139,40 @@ ggplot(
     breaks = seq(0.0, 1.0, by = 0.1),
     minor_breaks = seq(0.0, 1.0, by = 0.1)
   ) +
-  bbbq::geom_hline(data = t_intercepts, aes(yintercept = f_tmh), color = "red") +
+  ggplot2::geom_hline(data = t_intercepts, aes(yintercept = f_tmh), color = "red") +
   bbbq::get_bbbq_theme() +
   ggplot2::theme(axis.line = ggplot2::element_line(colour = "black"),
     axis.text.x = element_text(angle = 90, hjust = 1)
   ) + ggplot2::theme(text = element_text(size = 17)) +
   ggsave(
     paste0("fig_f_tmh_", percentage, "_panel.png"),
+    width = 7,
+    height = 7
+  )
+
+# Humans-only, to compare with other studies
+ggplot2::ggplot(
+  dplyr::filter(t_tmh_binders, target == "human" & mhc_class == "I"),
+  aes(x = haplotype, y = f_tmh)
+) +
+  ggplot2::geom_col(position = position_dodge(), fill = "#BBBBBB", width = 0.9) +
+  ggplot2::xlab("Haplotype") +
+  ggplot2::ylab("Epitopes overlapping with TMH") +
+  ggplot2::scale_y_continuous(
+    labels = scales::percent_format(accuracy = 2),
+    breaks = seq(0.0, 1.0, by = 0.1),
+    minor_breaks = seq(0.0, 1.0, by = 0.1)
+  ) +
+  ggplot2::geom_hline(
+    data = dplyr::filter(t_intercepts, target == "human" & mhc_class == "I"),
+    aes(yintercept = f_tmh), color = "red"
+  ) +
+  bbbq::get_bbbq_theme() +
+  ggplot2::theme(axis.line = ggplot2::element_line(colour = "black"),
+    axis.text.x = element_text(angle = 90, hjust = 1)
+  ) + ggplot2::theme(text = element_text(size = 17)) +
+  ggsave(
+    paste0("fig_f_tmh_", percentage, "_human_mhc1.png"),
     width = 7,
     height = 7
   )
