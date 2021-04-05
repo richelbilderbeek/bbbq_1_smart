@@ -184,19 +184,33 @@ for (haplotype_index in seq_along(haplotypes)) {
 
 t <- dplyr::bind_rows(tibbles)
 
-ggplot2::ggplot(t, ggplot2::aes(x = f_tmh_epitopes, y = hydrophobicity)) +
+t$simple_haplotype <- bbbq::simplify_haplotype_names(t$haplotype)
+
+p <- ggplot2::ggplot(t, ggplot2::aes(x = f_tmh_epitopes, y = hydrophobicity)) +
   ggplot2::geom_point() +
+  ggplot2::geom_smooth(method = "lm", formula = y ~ x, col = "red", se = FALSE) +
+  ggplot2::geom_text(
+    ggplot2::aes(label = simple_haplotype),
+    size = 5,
+    nudge_y = 0.04,
+    check_overlap = TRUE
+  ) +
   ggplot2::scale_y_continuous("Hydrophobicity preference score") +
   ggplot2::scale_x_continuous("% of TMH epitopes") +
-  ggplot2::geom_smooth(method = "lm", formula = y ~ x, col = "red", se = FALSE) +
   ggpmisc::stat_poly_eq(
     formula = y ~ x,
     ggplot2::aes(label = paste(..rr.label.., sep = "~~~")),
-    parse = TRUE
-  ) + bbbq::get_bbbq_theme() +
-  ggplot2::theme(text = ggplot2::element_text(size = 24)) +
-  ggplot2::ggsave(
+    parse = TRUE,
+    size = 8
+  ) + bbbq::get_bbbq_theme()
+p
+p  + ggplot2::ggsave(
     paste0("~/fig_hydrophobicity_mhc", mhc_class,".png"),
+    width = 7,
+    height = 7
+  )
+p  + ggplot2::ggsave(
+    paste0("~/fig_hydrophobicity_mhc", mhc_class,".tiff"),
     width = 7,
     height = 7
   )
