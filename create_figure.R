@@ -51,13 +51,6 @@ message("peptide_length: ", peptide_length)
 targets <- c("covid", "human", "myco")
 message("targets: ", paste0(targets, collapse = ", "))
 
-target_filename <- paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, ".png")
-message("target_filename: '", target_filename, "'")
-target_filename_grid <- paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_grid.png")
-message("target_filename_grid: '", target_filename_grid, "'")
-target_filename_normalized <- paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_normalized.png")
-message("target_filename_normalized: '", target_filename_normalized, "'")
-
 general_filename <- "general.csv"
 message("general_filename: '", general_filename, "'")
 testthat::expect_true(file.exists(general_filename))
@@ -114,13 +107,8 @@ t_coincidence <- t_tmh_binders %>% dplyr::group_by(target) %>%
 t_coincidence$f_tmh <- t_coincidence$n_spots_tmh / t_coincidence$n_spots
 
 f_covid <- t_coincidence$f_tmh[t_coincidence$target == "covid"]
-#f_flua  <- t_coincidence$f_tmh[t_coincidence$target == "flua"]
-#f_hepa  <- t_coincidence$f_tmh[t_coincidence$target == "hepa"]
-#f_hiv   <- t_coincidence$f_tmh[t_coincidence$target == "hiv"]
 f_human <- t_coincidence$f_tmh[t_coincidence$target == "human"]
 f_myco  <- t_coincidence$f_tmh[t_coincidence$target == "myco"]
-#f_polio <- t_coincidence$f_tmh[t_coincidence$target == "polio"]
-#f_rhino <- t_coincidence$f_tmh[t_coincidence$target == "rhino"]
 
 roman_mhc_class <- as.character(as.roman(mhc_class))
 testthat::expect_true(
@@ -129,7 +117,7 @@ testthat::expect_true(
 )
 
 # Humans-only, to compare with other studies
-ggplot(
+p <- ggplot(
   t_tmh_binders %>% dplyr::filter(target == "human"),
   aes(x = haplotype, y = f_tmh)
 ) +
@@ -150,23 +138,25 @@ ggplot(
       "-mers that overlaps with TMH: ",
       formatC(100.0 * mean(f_human), digits = 3),"%"
     )
-  ) + ggsave(
+  )
+p
+p + ggsave(
     paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_human.png"),
     width = 7,
     height = 7
-  )
+)
+p + ggsave(
+    paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_human.tiff"),
+    width = 7,
+    height = 7
+)
 
 
 caption_text <- paste0(
   "Horizontal lines: % ", peptide_length, "-mers that overlaps with TMH in ",
   "SARS-Cov2 (",     formatC(100.0 * mean(f_covid), digits = 3),"%), ",
-  #"Influenza A (",   formatC(100.0 * mean(f_flua ), digits = 3),"%), ",
-  #"Hepatitus A (",   formatC(100.0 * mean(f_hepa ), digits = 3),"%), \n",
-  #"HIV (",           formatC(100.0 * mean(f_hiv  ), digits = 3),"%), ",
   "humans (",        formatC(100.0 * mean(f_human), digits = 3),"%), ",
   "Mycobacterium (", formatC(100.0 * mean(f_myco ), digits = 3),"%), "
-  #"Polio (",         formatC(100.0 * mean(f_polio), digits = 3),"%), ",
-  #"Rhinovirus (",    formatC(100.0 * mean(f_rhino), digits = 3),"%)"
 )
 p <- ggplot(t_tmh_binders, aes(x = haplotype, y = f_tmh, fill = target)) +
   geom_col(position = position_dodge(), color = "#000000") +
@@ -183,8 +173,17 @@ p <- ggplot(t_tmh_binders, aes(x = haplotype, y = f_tmh, fill = target)) +
     title = "% epitopes that overlap with TMH per haplotype",
     caption = caption_text
   )
-p
-p + ggsave(target_filename, width = 7, height = 7)
+
+p + ggsave(
+  paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, ".png"),
+  width = 7,
+  height = 7
+)
+p + ggsave(
+  paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, ".tiff"),
+  width = 7,
+  height = 7
+)
 
 
 # Facet labels
@@ -196,12 +195,21 @@ facet_labels <- paste0(
 names(facet_labels) <- t_general$target
 
 
-p + facet_grid(
+p_facet <- p + facet_grid(
   target ~ ., scales = "free",
   labeller = ggplot2::as_labeller(facet_labels)
 ) + ggplot2::theme(strip.text.y.right = ggplot2::element_text(angle = 0)) +
-  ggplot2::theme(legend.position = "none") +
-  ggsave(target_filename_grid, width = 7, height = 14)
+  ggplot2::theme(legend.position = "none")
+
+p_facet + ggsave(
+  paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_grid.png"),
+  width = 7, height = 14
+)
+p_facet + ggsave(
+  paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_grid.tiff"),
+  width = 7, height = 14
+)
+
 
 # Normalize
 t_tmh_binders$coincidence <- NA
@@ -222,7 +230,7 @@ for (i in seq_len(nrow(t_tmh_binders))) {
 }
 t_tmh_binders$normalized_f_tmh <- t_tmh_binders$f_tmh / t_tmh_binders$coincidence
 
-ggplot(t_tmh_binders, aes(x = haplotype, y = normalized_f_tmh, fill = target)) +
+p <- ggplot(t_tmh_binders, aes(x = haplotype, y = normalized_f_tmh, fill = target)) +
   geom_col(position = position_dodge(), color = "#000000") +
   xlab(paste0("MHC-", roman_mhc_class, " HLA haplotype")) +
   ylab("Normalized epitopes overlapping \nwith transmembrane helix") +
@@ -235,4 +243,15 @@ ggplot(t_tmh_binders, aes(x = haplotype, y = normalized_f_tmh, fill = target)) +
       "Dashed line: normalized expected percentage of epitopes ",
       "that have one residue overlapping with a TMH"
     )
-  ) + ggsave(target_filename_normalized, width = 7, height = 7)
+  )
+
+p + ggsave(
+  paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_normalized.png"),
+  width = 7, height = 7
+)
+p + ggsave(
+  paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_normalized.tiff"),
+  width = 7, height = 7
+)
+
+
