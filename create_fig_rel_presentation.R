@@ -107,7 +107,13 @@ p1 <- ggplot(t_tmh_binders, aes(x = haplotype, y = normalized_f_tmh, fill = mhc_
 p1
 
 p1 + ggplot2::ggsave(
-  filename = "~/fig_rel_presentation_per_haplotype.png",
+  filename = "fig_rel_presentation_per_haplotype.png",
+  width = 7,
+  height = 7
+)
+
+p1 + ggplot2::ggsave(
+  filename = "fig_rel_presentation_per_haplotype.tiff",
   width = 7,
   height = 7
 )
@@ -161,7 +167,14 @@ p2 <- ggplot(t_per_mhc_class, aes(x = mhc_class, y = mean_f_tmh_observed)) +
 p2
 
 p2 + ggplot2::ggsave(
-  filename = "~/fig_rel_presentation.png",
+  filename = "fig_rel_presentation.png",
   width = 7,
   height = 7
 )
+
+p2 + ggplot2::ggsave(
+  filename = "fig_rel_presentation.tiff",
+  width = 7,
+  height = 7
+)
+

@@ -18,6 +18,7 @@ all: \
   table_f_tmh_2.latex \
   fig_f_tmh_mhc1_2.png \
   fig_f_tmh_mhc2_2.png \
+  fig_rel_presentation.tiff \
   table_ic50_binders_mhc1_2.latex \
   table_ic50_binders_mhc2_2.latex \
   table_tmh_binders_mhc1_2.latex \
@@ -83,6 +84,9 @@ fig_f_tmh_mhc1_2.png: counts_2.csv general.csv create_figure.R
 
 fig_f_tmh_mhc2_2.png: counts_2.csv general.csv create_figure.R
 	Rscript create_figure.R mhc2 2
+
+fig_rel_presentation.tiff: counts_2.csv general.csv create_fig_rel_presentation.R
+	Rscript create_fig_rel_presentation.R
 
 update_packages:
 	Rscript -e 'remotes::install_github("richelbilderbeek/peregrine")'
