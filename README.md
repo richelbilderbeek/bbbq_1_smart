@@ -1,14 +1,29 @@
 # bbbq_1_smart
 
-Branch |[![Travis CI logo](pics/TravisCI.png)](https://travis-ci.org)                                                                             |[![Codecov logo](pics/Codecov.png)](https://www.codecov.io)
--------|------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-master |[![Build Status](https://travis-ci.org/richelbilderbeek/bbbq_1_smart.svg?branch=master)](https://travis-ci.org/richelbilderbeek/bbbq_1_smart) |[![codecov.io](https://codecov.io/github/richelbilderbeek/bbbq_1_smart/coverage.svg?branch=master)](https://codecov.io/github/richelbilderbeek/bbbq_1_smart/branch/master)
-develop|[![Build Status](https://travis-ci.org/richelbilderbeek/bbbq_1_smart.svg?branch=develop)](https://travis-ci.org/richelbilderbeek/bbbq_1_smart)|[![codecov.io](https://codecov.io/github/richelbilderbeek/bbbq_1_smart/coverage.svg?branch=develop)](https://codecov.io/github/richelbilderbeek/bbbq_1_smart/branch/develop)
+Branch |[![Travis CI logo](pics/TravisCI.png)](https://travis-ci.org)                                                                                  
+-------|----------------------------------------------------------------------------------------------------------------------------------------------
+master |[![Build Status](https://travis-ci.org/richelbilderbeek/bbbq_1_smart.svg?branch=master)](https://travis-ci.org/richelbilderbeek/bbbq_1_smart) 
+develop|[![Build Status](https://travis-ci.org/richelbilderbeek/bbbq_1_smart.svg?branch=develop)](https://travis-ci.org/richelbilderbeek/bbbq_1_smart)
 
-A pipeline to answer the first sub-question of the 
-Bianchi, Bilderbeek and Bogaart Question.
+The article 'Transmembrane helices are an overlooked and evolutionarily conserved source of major histocompatibility complex class I and II epitopes',
+by Bilderbeek, Baranov, van den Bogaart and Bianchi.
 
- * :lock: [Full article](https://github.com/richelbilderbeek/bbbq_article)
+ * [Article GitHub repo](https://github.com/richelbilderbeek/bbbq_article)
+ * [Article on biorxiv](https://www.biorxiv.org/content/10.1101/2021.05.02.441235v3)
+
+```
+Bilderbeek, Richèl JC, et al. "Transmembrane helices are an overlooked and evolutionarily conserved source of major histocompatibility complex class I and II epitopes." bioRxiv (2021).
+```
+
+```
+@article{bilderbeek2021transmembrane,
+  title={Transmembrane helices are an overlooked and evolutionarily conserved source of major histocompatibility complex class {I} and {II} epitopes},
+  author={Bilderbeek, Richèl JC and Baranov, Maxim and van den Bogaart, Geert and Bianchi, Frans},
+  journal={bioRxiv},
+  year={2021},
+  publisher={Cold Spring Harbor Laboratory}
+}
+```
 
 ## Build
 
