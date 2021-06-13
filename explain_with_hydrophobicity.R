@@ -209,8 +209,22 @@ p + ggplot2::geom_smooth(method = "lm", formula = y ~ x, col = "red", se = FALSE
     width = 7,
     height = 7
   )
-p  + ggplot2::ggsave(
+p + ggplot2::geom_smooth(method = "lm", formula = y ~ x, col = "red", se = FALSE) +
+  ggplot2::ggsave(
     paste0("~/fig_hydrophobicity_mhc", mhc_class,".tiff"),
+    width = 7,
+    height = 7
+  )
+
+p + ggplot2::geom_smooth(method = "lm", formula = y ~ x, col = "black", se = FALSE) +
+  ggplot2::ggsave(
+    paste0("~/fig_hydrophobicity_mhc", mhc_class,"_bw.png"),
+    width = 7,
+    height = 7
+  )
+p + ggplot2::geom_smooth(method = "lm", formula = y ~ x, col = "black", se = FALSE) +
+  ggplot2::ggsave(
+    paste0("~/fig_hydrophobicity_mhc", mhc_class,"_bw.tiff"),
     width = 7,
     height = 7
   )
