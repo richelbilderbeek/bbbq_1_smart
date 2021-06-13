@@ -118,6 +118,23 @@ p1 + ggplot2::ggsave(
   height = 7
 )
 
+p1 + ggplot2::scale_color_brewer(palette = "Greys") +
+  ggplot2::scale_fill_brewer(palette = "Greys")  +
+  ggplot2::ggsave(
+  filename = "fig_rel_presentation_per_haplotype_bw.tiff",
+  width = 7,
+  height = 7
+)
+
+p1 + ggplot2::scale_color_brewer(palette = "Greys") +
+  ggplot2::scale_fill_brewer(palette = "Greys")  +
+  ggplot2::ggsave(
+  filename = "fig_rel_presentation_per_haplotype_bw.tiff",
+  width = 7,
+  height = 7
+)
+
+
 
 t_per_mhc_class <- t_tmh_binders %>%
   dplyr::group_by(target, mhc_class) %>%

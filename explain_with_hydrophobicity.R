@@ -188,7 +188,6 @@ t$simple_haplotype <- bbbq::simplify_haplotype_names(t$haplotype)
 
 p <- ggplot2::ggplot(t, ggplot2::aes(x = f_tmh_epitopes, y = hydrophobicity)) +
   ggplot2::geom_point() +
-  ggplot2::geom_smooth(method = "lm", formula = y ~ x, col = "red", se = FALSE) +
   ggplot2::geom_text(
     ggplot2::aes(label = simple_haplotype),
     size = 5,
@@ -204,7 +203,8 @@ p <- ggplot2::ggplot(t, ggplot2::aes(x = f_tmh_epitopes, y = hydrophobicity)) +
     size = 8
   ) + bbbq::get_bbbq_theme()
 p
-p  + ggplot2::ggsave(
+p + ggplot2::geom_smooth(method = "lm", formula = y ~ x, col = "red", se = FALSE) +
+  ggplot2::ggsave(
     paste0("~/fig_hydrophobicity_mhc", mhc_class,".png"),
     width = 7,
     height = 7

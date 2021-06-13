@@ -134,19 +134,20 @@ p <- ggplot2::ggplot(
     breaks = seq(0.0, 1.0, by = 0.1),
     minor_breaks = seq(0.0, 1.0, by = 0.1)
   ) +
-  ggplot2::geom_hline(data = t_intercepts, aes(yintercept = f_tmh), color = "red") +
   bbbq::get_bbbq_theme() +
   ggplot2::theme(axis.line = ggplot2::element_line(colour = "black"),
     axis.text.x = element_text(angle = 90, hjust = 1)
   ) + ggplot2::theme(text = element_text(size = 17))
-
-p + ggsave(
+p
+p + ggplot2::geom_hline(data = t_intercepts, aes(yintercept = f_tmh), color = "red") +
+  ggsave(
   paste0("fig_f_tmh_", percentage, "_panel.png"),
   width = 7,
   height = 7
 )
 
-p + ggplot2::scale_color_brewer(palette = "Greys") +
+p + ggplot2::geom_hline(data = t_intercepts, aes(yintercept = f_tmh), color = "#000000", lty = "dashed") +
+  ggplot2::scale_color_brewer(palette = "Greys") +
   ggplot2::scale_fill_brewer(palette = "Greys") +
   ggsave(
   paste0("fig_f_tmh_", percentage, "_panel_bw.png"),
