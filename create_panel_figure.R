@@ -108,17 +108,12 @@ t_coincidence <- t_tmh_binders %>% dplyr::group_by(target, mhc_class) %>%
 t_coincidence$f_tmh <- t_coincidence$n_spots_tmh / t_coincidence$n_spots
 
 f_covid <- t_coincidence$f_tmh[t_coincidence$target == "covid"]
-#f_flua  <- t_coincidence$f_tmh[t_coincidence$target == "flua"]
-#f_hepa  <- t_coincidence$f_tmh[t_coincidence$target == "hepa"]
-#f_hiv   <- t_coincidence$f_tmh[t_coincidence$target == "hiv"]
 f_human <- t_coincidence$f_tmh[t_coincidence$target == "human"]
 f_myco  <- t_coincidence$f_tmh[t_coincidence$target == "myco"]
-#f_polio <- t_coincidence$f_tmh[t_coincidence$target == "polio"]
-#f_rhino <- t_coincidence$f_tmh[t_coincidence$target == "rhino"]
 
 t_intercepts <- dplyr::select(t_coincidence, target, mhc_class, f_tmh)
 
-ggplot2::ggplot(
+p <- ggplot2::ggplot(
   t_tmh_binders,
   aes(x = haplotype, y = f_tmh)
 ) +
@@ -143,15 +138,24 @@ ggplot2::ggplot(
   bbbq::get_bbbq_theme() +
   ggplot2::theme(axis.line = ggplot2::element_line(colour = "black"),
     axis.text.x = element_text(angle = 90, hjust = 1)
-  ) + ggplot2::theme(text = element_text(size = 17)) +
+  ) + ggplot2::theme(text = element_text(size = 17))
+
+p + ggsave(
+  paste0("fig_f_tmh_", percentage, "_panel.png"),
+  width = 7,
+  height = 7
+)
+
+p + ggplot2::scale_color_brewer(palette = "Greys") +
+  ggplot2::scale_fill_brewer(palette = "Greys") +
   ggsave(
-    paste0("fig_f_tmh_", percentage, "_panel.png"),
-    width = 7,
-    height = 7
-  )
+  paste0("fig_f_tmh_", percentage, "_panel_bw.png"),
+  width = 7,
+  height = 7
+)
 
 # Humans-only, to compare with other studies
-ggplot2::ggplot(
+p <- ggplot2::ggplot(
   dplyr::filter(t_tmh_binders, target == "human" & mhc_class == "I"),
   aes(x = haplotype, y = f_tmh)
 ) +
@@ -170,9 +174,13 @@ ggplot2::ggplot(
   bbbq::get_bbbq_theme() +
   ggplot2::theme(axis.line = ggplot2::element_line(colour = "black"),
     axis.text.x = element_text(angle = 90, hjust = 1)
-  ) + ggplot2::theme(text = element_text(size = 17)) +
+  ) + ggplot2::theme(text = element_text(size = 17))
+
+
+p + ggplot2::scale_color_brewer(palette = "Greys") +
+  ggplot2::scale_fill_brewer(palette = "Greys") +
   ggsave(
-    paste0("fig_f_tmh_", percentage, "_human_mhc1.png"),
-    width = 7,
-    height = 7
-  )
+  paste0("fig_f_tmh_", percentage, "_human_mhc1_bw.png"),
+  width = 7,
+  height = 7
+)
