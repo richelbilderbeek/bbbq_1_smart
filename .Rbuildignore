@@ -1,0 +1,12 @@
+^bbbq_1_smart\.Rproj$
+^\.Rproj\.user$
+^LICENSE$
+^\.github$
+^.*\.R$
+^.*\.csv$
+^.*\.png$
+^.*\.tiff$
+^.*\.pdf$
+^.*\.latex$
+^Makefile$
+^results_14-mer$

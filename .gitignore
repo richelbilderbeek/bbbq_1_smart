@@ -39,3 +39,4 @@ vignettes/*.pdf
 .Renviron
 *.csv
 Rplots.pdf
+.Rproj.user

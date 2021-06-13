@@ -1,0 +1,16 @@
+Package: bbbq1smart
+Title: Creates Figure One For The BBBQ Article
+Version: 1.0
+Authors@R: c(
+    person("Richèl J.C.", "Bilderbeek", email = "richel@richelbilderbeek.nl", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-1107-7049")))
+Description: Articles are important.
+    An article was written.
+    Articles have figures.
+    This repo does figure 1.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+URL: https://github.com/richelbilderbeek/bbbq_1_smart/
+BugReports: https://github.com/richelbilderbeek/bbbq_1_smart/
