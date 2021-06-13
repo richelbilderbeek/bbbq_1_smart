@@ -167,19 +167,28 @@ p <- ggplot2::ggplot(
     breaks = seq(0.0, 1.0, by = 0.1),
     minor_breaks = seq(0.0, 1.0, by = 0.1)
   ) +
-  ggplot2::geom_hline(
-    data = dplyr::filter(t_intercepts, target == "human" & mhc_class == "I"),
-    aes(yintercept = f_tmh), color = "red"
-  ) +
   bbbq::get_bbbq_theme() +
   ggplot2::theme(axis.line = ggplot2::element_line(colour = "black"),
     axis.text.x = element_text(angle = 90, hjust = 1)
   ) + ggplot2::theme(text = element_text(size = 17))
 
+# Red line
+p + ggplot2::geom_hline(
+  data = dplyr::filter(t_intercepts, target == "human" & mhc_class == "I"),
+  aes(yintercept = f_tmh), color = "red"
+) + ggsave(
+  paste0("fig_f_tmh_", percentage, "_human_mhc1.png"),
+  width = 7,
+  height = 7
+)
+
 
 p + ggplot2::scale_color_brewer(palette = "Greys") +
   ggplot2::scale_fill_brewer(palette = "Greys") +
-  ggsave(
+  ggplot2::geom_hline(
+    data = dplyr::filter(t_intercepts, target == "human" & mhc_class == "I"),
+    aes(yintercept = f_tmh), color = "#000000", lty = "dashed"
+  ) + ggsave(
   paste0("fig_f_tmh_", percentage, "_human_mhc1_bw.png"),
   width = 7,
   height = 7
