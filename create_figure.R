@@ -81,9 +81,11 @@ t_tmh_binders_all <- readr::read_csv(
 )
 
 # Only keep the desired MHC class
+haplotype <- NULL
 t_tmh_binders_mhc <- t_tmh_binders_all %>% filter(haplotype %in% haplotypes)
 
 # Group all proteins
+target <- NULL
 t_tmh_binders <- t_tmh_binders_mhc %>% dplyr::group_by(target, haplotype) %>%
     dplyr::summarize(
       n_binders = sum(n_binders, na.rm = TRUE),
@@ -117,11 +119,11 @@ testthat::expect_true(
 )
 
 # Humans-only, to compare with other studies
-p <- ggplot(
+p <- ggplot2::ggplot(
   t_tmh_binders %>% dplyr::filter(target == "human"),
-  aes(x = haplotype, y = f_tmh)
+  ggplot2::aes(x = haplotype, y = f_tmh)
 ) +
-  geom_col(position = position_dodge(), color = "#000000") +
+  ggplot2::geom_col(position = ggplot2::position_dodge(), color = "#000000") +
   xlab(paste0("MHC-", roman_mhc_class, " HLA haplotype")) +
   ylab("Epitopes overlapping \nwith transmembrane helix") +
   scale_y_continuous(
@@ -136,7 +138,7 @@ p <- ggplot(
     caption = paste0(
       "Dashed horizontal line: % ", peptide_length,
       "-mers that overlaps with TMH: ",
-      formatC(100.0 * mean(f_human), digits = 3),"%"
+      formatC(100.0 * mean(f_human), digits = 3), "%"
     )
   )
 p
@@ -185,6 +187,20 @@ p + ggsave(
   height = 7
 )
 
+p_bw <- p +
+  ggplot2::scale_color_brewer(palette = "Greys") +
+  ggplot2::scale_fill_brewer(palette = "Greys")
+p_bw + ggsave(
+  paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_bw.png"),
+  width = 7,
+  height = 7
+)
+p_bw + ggsave(
+  paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_bw.tiff"),
+  width = 7,
+  height = 7
+)
+
 
 # Facet labels
 facet_labels <- paste0(
@@ -210,6 +226,19 @@ p_facet + ggsave(
   width = 7, height = 14
 )
 
+p_facet_bw <- p_facet +
+  ggplot2::scale_color_brewer(palette = "Greys") +
+  ggplot2::scale_fill_brewer(palette = "Greys")
+
+p_facet_bw + ggsave(
+  paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_grid_bw.png"),
+  width = 7, height = 14
+)
+p_facet_bw + ggsave(
+  paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_grid_bw.tiff"),
+  width = 7, height = 14
+)
+
 
 # Normalize
 t_tmh_binders$coincidence <- NA
@@ -217,13 +246,8 @@ for (i in seq_len(nrow(t_tmh_binders))) {
   target <- t_tmh_binders$target[i]
   coincidence <- NA
   if (target == "covid") coincidence <- f_covid
-  #else if (target == "flua") coincidence <- f_flua
-  #else if (target == "hepa") coincidence <- f_hepa
-  #else if (target == "hiv") coincidence <- f_hiv
   else if (target == "human") coincidence <- f_human
   else if (target == "myco") coincidence <- f_myco
-  #else if (target == "polio") coincidence <- f_polio
-  #else if (target == "rhino") coincidence <- f_rhino
   else stop("?")
   t_tmh_binders$coincidence[i] <- coincidence
 
@@ -251,6 +275,18 @@ p + ggsave(
 )
 p + ggsave(
   paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_normalized.tiff"),
+  width = 7, height = 7
+)
+p_bw <- p +
+  ggplot2::scale_color_brewer(palette = "Greys") +
+  ggplot2::scale_fill_brewer(palette = "Greys")
+
+p_bw + ggsave(
+  paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_normalized_bw.png"),
+  width = 7, height = 7
+)
+p_bw + ggsave(
+  paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_normalized_bw.tiff"),
   width = 7, height = 7
 )
 
