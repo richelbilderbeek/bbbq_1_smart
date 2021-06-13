@@ -289,5 +289,3 @@ p_bw + ggsave(
   paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_normalized_bw.tiff"),
   width = 7, height = 7
 )
-
-
