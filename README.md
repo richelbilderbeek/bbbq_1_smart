@@ -1,9 +1,9 @@
 # bbbq_1_smart
 
-Branch |[![Travis CI logo](pics/TravisCI.png)](https://travis-ci.org)                                                                                  
+Branch |[![Travis CI logo](pics/TravisCI.png)](https://travis-ci.com)                                                                                  
 -------|----------------------------------------------------------------------------------------------------------------------------------------------
-master |[![Build Status](https://travis-ci.org/richelbilderbeek/bbbq_1_smart.svg?branch=master)](https://travis-ci.org/richelbilderbeek/bbbq_1_smart) 
-develop|[![Build Status](https://travis-ci.org/richelbilderbeek/bbbq_1_smart.svg?branch=develop)](https://travis-ci.org/richelbilderbeek/bbbq_1_smart)
+master |[![Build Status](https://travis-ci.com/richelbilderbeek/bbbq_1_smart.svg?branch=master)](https://travis-ci.com/richelbilderbeek/bbbq_1_smart) 
+develop|[![Build Status](https://travis-ci.com/richelbilderbeek/bbbq_1_smart.svg?branch=develop)](https://travis-ci.com/richelbilderbeek/bbbq_1_smart)
 
 The article 'Transmembrane helices are an overlooked and evolutionarily conserved source of major histocompatibility complex class I and II epitopes',
 by Bilderbeek, Baranov, van den Bogaart and Bianchi.
