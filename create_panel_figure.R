@@ -158,6 +158,15 @@ p + ggplot2::geom_hline(data = t_intercepts, aes(yintercept = f_tmh), color = "#
   width = 7,
   height = 7
 )
+p + ggplot2::geom_hline(data = t_intercepts, aes(yintercept = f_tmh), color = "#000000", lty = "dashed") +
+  ggplot2::scale_color_brewer(palette = "Greys") +
+  ggplot2::scale_fill_brewer(palette = "Greys"); ggsave(
+  paste0("fig_f_tmh_", percentage, "_panel_bw.tiff"),
+  width = 7,
+  height = 7
+)
+
+
 
 # Humans-only, to compare with other studies
 p <- ggplot2::ggplot(
