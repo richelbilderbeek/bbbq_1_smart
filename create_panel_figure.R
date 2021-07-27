@@ -144,6 +144,12 @@ p + ggplot2::geom_hline(data = t_intercepts, aes(yintercept = f_tmh), color = "r
   width = 7,
   height = 7
 )
+p + ggplot2::geom_hline(data = t_intercepts, aes(yintercept = f_tmh), color = "red"); ggsave(
+  paste0("fig_f_tmh_", percentage, "_panel.tiff"),
+  width = 7,
+  height = 7
+)
+
 
 p + ggplot2::geom_hline(data = t_intercepts, aes(yintercept = f_tmh), color = "#000000", lty = "dashed") +
   ggplot2::scale_color_brewer(palette = "Greys") +
