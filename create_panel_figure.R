@@ -207,3 +207,13 @@ p + ggplot2::scale_color_brewer(palette = "Greys") +
   width = 7,
   height = 7
 )
+p + ggplot2::scale_color_brewer(palette = "Greys") +
+  ggplot2::scale_fill_brewer(palette = "Greys") +
+  ggplot2::geom_hline(
+    data = dplyr::filter(t_intercepts, target == "human" & mhc_class == "I"),
+    aes(yintercept = f_tmh), color = "#000000", lty = "dashed"
+  ); ggsave(
+  paste0("fig_f_tmh_", percentage, "_human_mhc1_bw.tiff"),
+  width = 7,
+  height = 7
+)
