@@ -37,6 +37,7 @@ covid_2_counts.csv: create_all_counts_per_proteome.R
 	Rscript -e 'remotes::install_github("richelbilderbeek/mhcnpreds")'
 	Rscript -e 'remotes::install_github("richelbilderbeek/epiprepreds")'
 	Rscript -e 'remotes::install_bioc("Biostrings")'
+	Rscript -e 'remotes::install_github("richelbilderbeek/bbbq")'
 	Rscript create_all_counts_per_proteome.R covid 2%
 
 human_2_counts.csv: create_all_counts_per_proteome.R
