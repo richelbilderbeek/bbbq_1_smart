@@ -31,10 +31,12 @@ all: \
 ################################################################################
 
 covid_2_counts.csv: create_all_counts_per_proteome.R
+	Rscript -e 'remotes::install_github("richelbilderbeek/mhcnuggetsr")'
+	Rscript -e 'remotes::install_github("richelbilderbeek/mhcnuggetsrinstall")'
+	Rscript -e 'if (mhcnuggetsr::is_mhcnuggets_installed()) mhcnuggetsrinstall::install_mhcnuggets()'
 	Rscript -e 'remotes::install_github("richelbilderbeek/mhcnpreds")'
 	Rscript -e 'remotes::install_github("richelbilderbeek/nmhc2ppreds")'
 	Rscript -e 'remotes::install_github("richelbilderbeek/tmhmm")'
-	Rscript -e 'remotes::install_github("richelbilderbeek/mhcnpreds")'
 	Rscript -e 'remotes::install_github("richelbilderbeek/epiprepreds")'
 	Rscript -e 'remotes::install_github("richelbilderbeek/pureseqtmr")'
 	Rscript -e 'remotes::install_bioc("Biostrings")'
