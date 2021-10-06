@@ -1,9 +1,9 @@
 # bbbq_1_smart
 
-Branch |[![Travis CI logo](pics/TravisCI.png)](https://travis-ci.com)                                                                                  
--------|----------------------------------------------------------------------------------------------------------------------------------------------
-master |[![Build Status](https://travis-ci.com/richelbilderbeek/bbbq_1_smart.svg?branch=master)](https://travis-ci.com/richelbilderbeek/bbbq_1_smart) 
-develop|[![Build Status](https://travis-ci.com/richelbilderbeek/bbbq_1_smart.svg?branch=develop)](https://travis-ci.com/richelbilderbeek/bbbq_1_smart)
+Branch   |[![GitHub Actions logo](pics/GitHubActions.png)](https://github.com/richelbilderbeek/bbbq_1_smart/actions)|[![Codecov logo](pics/Codecov.png)](https://www.codecov.io)
+---------|-----------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------
+`master` |![make](https://github.com/richelbilderbeek/bbbq_1_smart/workflows/make/badge.svg?branch=master)   |[![codecov.io](https://codecov.io/github/richelbilderbeek/bbbq_1_smart/coverage.svg?branch=master)](https://codecov.io/github/richelbilderbeek/bbbq_1_smart/branch/master)
+`develop`|![make](https://github.com/richelbilderbeek/bbbq_1_smart/workflows/make/badge.svg?branch=develop)  |[![codecov.io](https://codecov.io/github/richelbilderbeek/bbbq_1_smart/coverage.svg?branch=develop)](https://codecov.io/github/richelbilderbeek/bbbq_1_smart/branch/develop)
 
 The article 'Transmembrane helices are an overlooked and evolutionarily conserved source of major histocompatibility complex class I and II epitopes',
 by Bilderbeek, Baranov, van den Bogaart and Bianchi.
