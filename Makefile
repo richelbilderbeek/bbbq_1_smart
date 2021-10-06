@@ -107,6 +107,7 @@ update_packages:
 	Rscript -e 'remotes::install_github("richelbilderbeek/epiprepreds")'
 	Rscript -e 'remotes::install_github("richelbilderbeek/netmhc2pan")'
 	Rscript -e 'remotes::install_github("richelbilderbeek/nmhc2ppreds")'
+	Rscript -e 'remotes::install_github("richelbilderbeek/pureseqtmr")'
 	Rscript -e 'remotes::install_github("richelbilderbeek/bbbq", ref = "develop")'
 
 clean:
