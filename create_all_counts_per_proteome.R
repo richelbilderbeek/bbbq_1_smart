@@ -51,6 +51,12 @@ library(dplyr, warn.conflicts = FALSE, quietly = TRUE)
 target_filename <- paste0(target_name, "_", percentage, "_counts.csv")
 message("target_filename: ", target_filename)
 
+if (tmhmm::is_on_github_actions()) {
+  message("Use 'covid' as a target on GHA, to speed up build!")
+  target_name <- "covid"
+}
+
+
 topology_prediction_tool <- "tmhmm"
 message("topology_prediction_tool: ", topology_prediction_tool)
 bbbq::check_topology_prediction_tool(topology_prediction_tool)
@@ -114,17 +120,7 @@ for (haplotype_index in seq_along(haplotypes)) {
   t_topology <- t_topology %>% filter(nchar(sequence) >= peptide_length)
   testthat::expect_equal(nrow(t_proteome), nrow(t_topology))
   testthat::expect_true(all(t_proteome$name == t_topology$name))
-
-  if (1 == 2) {
-    # Keep only the sequences with a TMHs
-    # Thanks @fransbianchi for correcting me here
-    keep_indices <- stringr::str_which(string = t_topology$sequence, pattern = "[mM]")
-    t_proteome <- t_proteome[keep_indices, ]
-    t_topology <- t_topology[keep_indices, ]
-    testthat::expect_equal(nrow(t_proteome), nrow(t_topology))
-    testthat::expect_true(all(t_proteome$name == t_topology$name))
-  }
-
+  
   # Keep only the sequences with the 20 standard amino acids
   regexp <- paste0("^[", paste0(Peptides::aaList(), collapse = ""), "]+$")
   keep_indices <- stringr::str_which(string = t_proteome$sequence, pattern = regexp)
