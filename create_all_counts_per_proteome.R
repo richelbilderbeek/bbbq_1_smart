@@ -16,6 +16,14 @@
 # [p1] = tr|A0A024R1R8|A0A024R1R8_HUMAN Coiled-coil domain-containing protein 72 OS=Homo sapiens (Human) OX=9606 GN=ENSG00000225528 PE=3 SV=1 # nolint indeed a long line
 #
 # Create all counts
+
+# Check MHCnuggets installation
+if (!mhcnuggetsr::is_mhcnuggets_installed()) {
+  mhcnuggetsr::mhcnuggetsr_report()
+}
+mhcnuggetsr::check_mhcnuggets_installation()
+
+# Parse arguments
 args <- commandArgs(trailingOnly = TRUE)
 message("args: {", paste0(args, collapse = ", "), "}")
 
@@ -94,6 +102,7 @@ for (haplotype_index in seq_along(haplotypes)) {
     message("Haplotype is MHC-II")
     peptide_length <- 14
     ic50_prediction_tool <- mhc2_ic50_prediction_tool
+
   }
   message("peptide_length: ", peptide_length)
   message("ic50_prediction_tool: ", ic50_prediction_tool)
