@@ -1,14 +1,14 @@
 # bbbq_1_smart
 
-Branch |[![Travis CI logo](pics/TravisCI.png)](https://travis-ci.org)                                                                             |[![Codecov logo](pics/Codecov.png)](https://www.codecov.io)
--------|------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-master |[![Build Status](https://travis-ci.org/richelbilderbeek/bbbq_1_smart.svg?branch=master)](https://travis-ci.org/richelbilderbeek/bbbq_1_smart) |[![codecov.io](https://codecov.io/github/richelbilderbeek/bbbq_1_smart/coverage.svg?branch=master)](https://codecov.io/github/richelbilderbeek/bbbq_1_smart/branch/master)
-develop|[![Build Status](https://travis-ci.org/richelbilderbeek/bbbq_1_smart.svg?branch=develop)](https://travis-ci.org/richelbilderbeek/bbbq_1_smart)|[![codecov.io](https://codecov.io/github/richelbilderbeek/bbbq_1_smart/coverage.svg?branch=develop)](https://codecov.io/github/richelbilderbeek/bbbq_1_smart/branch/develop)
+Branch   |[![GitHub Actions logo](pics/GitHubActions.png)](https://github.com/richelbilderbeek/bbbq_1_smart/actions)|[![Codecov logo](pics/Codecov.png)](https://www.codecov.io)
+---------|-----------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------
+`master` |![make](https://github.com/richelbilderbeek/bbbq_1_smart/workflows/make/badge.svg?branch=master)   |[![codecov.io](https://codecov.io/github/richelbilderbeek/bbbq_1_smart/coverage.svg?branch=master)](https://codecov.io/github/richelbilderbeek/bbbq_1_smart/branch/master)
+`develop`|![make](https://github.com/richelbilderbeek/bbbq_1_smart/workflows/make/badge.svg?branch=develop)  |[![codecov.io](https://codecov.io/github/richelbilderbeek/bbbq_1_smart/coverage.svg?branch=develop)](https://codecov.io/github/richelbilderbeek/bbbq_1_smart/branch/develop)
 
 A pipeline to answer the first sub-question of the 
 Bianchi, Bilderbeek and Bogaart Question.
 
- * :lock: [Full article](https://github.com/richelbilderbeek/bbbq_article)
+ * [Full article](https://github.com/richelbilderbeek/bbbq_article)
 
 ## Build
 
