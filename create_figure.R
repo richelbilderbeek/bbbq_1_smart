@@ -142,12 +142,12 @@ p <- ggplot2::ggplot(
     )
   )
 p
-p + ggsave(
+p; ggsave(
     paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_human.png"),
     width = 7,
     height = 7
 )
-p + ggsave(
+p; ggsave(
     paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_human.tiff"),
     width = 7,
     height = 7
@@ -176,12 +176,12 @@ p <- ggplot(t_tmh_binders, aes(x = haplotype, y = f_tmh, fill = target)) +
     caption = caption_text
   )
 
-p + ggsave(
+p; ggsave(
   paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, ".png"),
   width = 7,
   height = 7
 )
-p + ggsave(
+p; ggsave(
   paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, ".tiff"),
   width = 7,
   height = 7
@@ -190,12 +190,12 @@ p + ggsave(
 p_bw <- p +
   ggplot2::scale_color_brewer(palette = "Greys") +
   ggplot2::scale_fill_brewer(palette = "Greys")
-p_bw + ggsave(
+p_bw ; ggsave(
   paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_bw.png"),
   width = 7,
   height = 7
 )
-p_bw + ggsave(
+p_bw ; ggsave(
   paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_bw.tiff"),
   width = 7,
   height = 7
@@ -217,11 +217,11 @@ p_facet <- p + facet_grid(
 ) + ggplot2::theme(strip.text.y.right = ggplot2::element_text(angle = 0)) +
   ggplot2::theme(legend.position = "none")
 
-p_facet + ggsave(
+p_facet ; ggsave(
   paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_grid.png"),
   width = 7, height = 14
 )
-p_facet + ggsave(
+p_facet ; ggsave(
   paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_grid.tiff"),
   width = 7, height = 14
 )
@@ -230,11 +230,11 @@ p_facet_bw <- p_facet +
   ggplot2::scale_color_brewer(palette = "Greys") +
   ggplot2::scale_fill_brewer(palette = "Greys")
 
-p_facet_bw + ggsave(
+p_facet_bw ; ggsave(
   paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_grid_bw.png"),
   width = 7, height = 14
 )
-p_facet_bw + ggsave(
+p_facet_bw ; ggsave(
   paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_grid_bw.tiff"),
   width = 7, height = 14
 )
@@ -269,11 +269,11 @@ p <- ggplot(t_tmh_binders, aes(x = haplotype, y = normalized_f_tmh, fill = targe
     )
   )
 
-p + ggsave(
+p; ggsave(
   paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_normalized.png"),
   width = 7, height = 7
 )
-p + ggsave(
+p; ggsave(
   paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_normalized.tiff"),
   width = 7, height = 7
 )
@@ -281,11 +281,11 @@ p_bw <- p +
   ggplot2::scale_color_brewer(palette = "Greys") +
   ggplot2::scale_fill_brewer(palette = "Greys")
 
-p_bw + ggsave(
+p_bw ; ggsave(
   paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_normalized_bw.png"),
   width = 7, height = 7
 )
-p_bw + ggsave(
+p_bw ; ggsave(
   paste0("fig_f_tmh_mhc", mhc_class, "_", percentage, "_normalized_bw.tiff"),
   width = 7, height = 7
 )
