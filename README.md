@@ -96,15 +96,25 @@ Note that:
  * up so far, we only kept track of the membrane proteins. 
    Here we correct the percentages to include the full proteome again
 
-![](fig_f_tmh_mhc1_grid.png)
-
-![](fig_f_tmh_mhc1_normalized.png)
-
-![](fig_f_tmh_mhc1.png)
-
-![](fig_f_tmh_mhc2_grid.png)
-
-![](fig_f_tmh_mhc2_normalized.png)
-
-![](fig_f_tmh_mhc2.png)
+![](fig_f_tmh_2_human_mhc1_bw.png)
+![](fig_f_tmh_2_human_mhc1.png)
+![](fig_f_tmh_2_panel_bw.png)
+![](fig_f_tmh_2_panel.png)
+![](fig_f_tmh_mhc1_2_bw.png)
+![](fig_f_tmh_mhc1_2_grid_bw.png)
+![](fig_f_tmh_mhc1_2_grid.png)
+![](fig_f_tmh_mhc1_2_human.png)
+![](fig_f_tmh_mhc1_2_normalized_bw.png)
+![](fig_f_tmh_mhc1_2_normalized.png)
+![](fig_f_tmh_mhc1_2.png)
+![](fig_f_tmh_mhc2_2_bw.png)
+![](fig_f_tmh_mhc2_2_grid_bw.png)
+![](fig_f_tmh_mhc2_2_grid.png)
+![](fig_f_tmh_mhc2_2_human.png)
+![](fig_f_tmh_mhc2_2_normalized_bw.png)
+![](fig_f_tmh_mhc2_2_normalized.png)
+![](fig_f_tmh_mhc2_2.png)
+![](fig_rel_presentation_per_haplotype_bw.png)
+![](fig_rel_presentation_per_haplotype.png)
+![](fig_rel_presentation.png)
 
