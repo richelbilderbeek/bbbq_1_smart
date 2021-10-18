@@ -199,13 +199,19 @@ p <- ggplot2::ggplot(
   ) + ggplot2::theme(text = element_text(size = 17))
 
 # Red line
-p + ggplot2::geom_hline(
+q <- p + ggplot2::geom_hline(
   data = dplyr::filter(t_intercepts, target == "human" & mhc_class == "I"),
   aes(yintercept = f_tmh), color = "red"
-); ggsave(
+)
+q; ggsave(
   paste0("fig_f_tmh_", percentage, "_human_mhc1.png"),
   width = 7,
   height = 7
+)
+q; ggsave(
+  paste0("fig_f_tmh_", percentage, "_human_mhc1.tiff"),
+  width = 180, units = "mm",
+  height = 180
 )
 
 

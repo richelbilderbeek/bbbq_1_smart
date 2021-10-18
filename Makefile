@@ -19,6 +19,7 @@ all: \
   fig_f_tmh_mhc1_2.tiff \
   fig_f_tmh_mhc2_2.tiff \
   fig_rel_presentation.tiff \
+  fig_f_tmh_2_human_mhc1.tiff \
   table_ic50_binders_mhc1_2.latex \
   table_ic50_binders_mhc2_2.latex \
   table_tmh_binders_mhc1_2.latex \
@@ -99,6 +100,9 @@ fig_f_tmh_mhc2_2.tiff: counts_2.csv general.csv create_figure.R
 
 fig_rel_presentation.tiff: counts_2.csv general.csv create_fig_rel_presentation.R
 	Rscript create_fig_rel_presentation.R
+
+fig_f_tmh_2_human_mhc1.tiff: counts_2.csv general.csv create_panel_figure.R
+	Rscript create_panel_figure.R
 
 ################################################################################
 # Misc
