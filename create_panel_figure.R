@@ -220,39 +220,34 @@ p <- ggplot2::ggplot(
   ) + ggplot2::theme(text = element_text(size = 17))
 
 # Red line
-q <- p + ggplot2::geom_hline(
-  data = dplyr::filter(t_intercepts, target == "human" & mhc_class == "I"),
-  aes(yintercept = f_tmh), color = "red"
-)
-q; ggsave(
+p_human_color <- p +
+  ggplot2::geom_hline(data = dplyr::filter(t_intercepts, target == "human" & mhc_class == "I"), aes(yintercept = conf_99_low), color = "red") +
+  ggplot2::geom_hline(data = dplyr::filter(t_intercepts, target == "human" & mhc_class == "I"), aes(yintercept = conf_99_high), color = "red")
+p_human_color
+p_human_color; ggsave(
   paste0("fig_f_tmh_", percentage, "_human_mhc1.png"),
-  width = 7,
-  height = 7
+  width = 180, units = "mm",
+  height = 180
 )
-q; ggsave(
+p_human_color; ggsave(
   paste0("fig_f_tmh_", percentage, "_human_mhc1.tiff"),
   width = 180, units = "mm",
   height = 180
 )
 
 
-p + ggplot2::scale_color_brewer(palette = "Greys") +
+p_human_grey <- p + ggplot2::scale_color_brewer(palette = "Greys") +
   ggplot2::scale_fill_brewer(palette = "Greys") +
-  ggplot2::geom_hline(
-    data = dplyr::filter(t_intercepts, target == "human" & mhc_class == "I"),
-    aes(yintercept = f_tmh), color = "#000000", lty = "dashed"
-  ); ggsave(
+  ggplot2::geom_hline(data = dplyr::filter(t_intercepts, target == "human" & mhc_class == "I"), aes(yintercept = conf_99_low), color = "#000000", lty = "dashed") +
+  ggplot2::geom_hline(data = dplyr::filter(t_intercepts, target == "human" & mhc_class == "I"), aes(yintercept = conf_99_high), color = "#000000", lty = "dashed")
+p_human_grey
+p_human_grey; ggsave(
   paste0("fig_f_tmh_", percentage, "_human_mhc1_bw.png"),
-  width = 7,
-  height = 7
+  width = 180, units = "mm",
+  height = 180
 )
-p + ggplot2::scale_color_brewer(palette = "Greys") +
-  ggplot2::scale_fill_brewer(palette = "Greys") +
-  ggplot2::geom_hline(
-    data = dplyr::filter(t_intercepts, target == "human" & mhc_class == "I"),
-    aes(yintercept = f_tmh), color = "#000000", lty = "dashed"
-  ); ggsave(
+p_human_grey; ggsave(
   paste0("fig_f_tmh_", percentage, "_human_mhc1_bw.tiff"),
-  width = 7,
-  height = 7
+  width = 180, units = "mm",
+  height = 180
 )
