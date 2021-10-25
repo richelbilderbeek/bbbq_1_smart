@@ -107,11 +107,29 @@ t_coincidence <- t_tmh_binders %>% dplyr::group_by(target, mhc_class) %>%
     )
 t_coincidence$f_tmh <- t_coincidence$n_spots_tmh / t_coincidence$n_spots
 
+# Issue 233, Issue #233
+# https://github.com/richelbilderbeek/bbbq_article/issues/233
+# Add 99% confidence interval
+t_coincidence$conf_99_low <- NA
+t_coincidence$conf_99_high <- NA
+for (i in seq_len(nrow(t_coincidence))) {
+  binom_test_result <- binom.test(
+    x = t_coincidence$n_spots_tmh[i], # number of success
+    n = t_coincidence$n_spots[i], # number of trials
+    p = t_coincidence$f_tmh[i],
+    conf.level = 0.99
+  )
+  t_coincidence$conf_99_low[i] <- binom_test_result$conf.int[1]
+  t_coincidence$conf_99_high[i] <- binom_test_result$conf.int[2]
+}
+t_coincidence
+
+
 f_covid <- t_coincidence$f_tmh[t_coincidence$target == "covid"]
 f_human <- t_coincidence$f_tmh[t_coincidence$target == "human"]
 f_myco  <- t_coincidence$f_tmh[t_coincidence$target == "myco"]
 
-t_intercepts <- dplyr::select(t_coincidence, target, mhc_class, f_tmh)
+t_intercepts <- dplyr::select(t_coincidence, target, mhc_class, f_tmh, conf_99_low, conf_99_high)
 
 p <- ggplot2::ggplot(
   t_tmh_binders,
@@ -139,40 +157,43 @@ p <- ggplot2::ggplot(
     axis.text.x = element_text(angle = 90, hjust = 1)
   ) + ggplot2::theme(text = element_text(size = 17))
 p
-p + ggplot2::geom_hline(data = t_intercepts, aes(yintercept = f_tmh), color = "red"); ggsave(
+p_color <- p +
+  ggplot2::geom_hline(data = t_intercepts, aes(yintercept = conf_99_low), color = "red") +
+  ggplot2::geom_hline(data = t_intercepts, aes(yintercept = conf_99_high), color = "red")
+p_color
+p_color; ggsave(
   paste0("fig_f_tmh_", percentage, "_panel.png"),
   width = 7,
   height = 7
 )
-p + ggplot2::geom_hline(data = t_intercepts, aes(yintercept = f_tmh), color = "red"); ggsave(
+p_color; ggsave(
   paste0("fig_f_tmh_", percentage, "_panel.tiff"),
   width = 7,
   height = 7
 )
-p + ggplot2::geom_hline(data = t_intercepts, aes(yintercept = f_tmh), color = "red"); ggsave(
+p_color; ggsave(
   paste0("fig_f_tmh_", percentage, "_panel.eps"),
   width = 7,
   height = 7
 )
 
-
-p + ggplot2::geom_hline(data = t_intercepts, aes(yintercept = f_tmh), color = "#000000", lty = "dashed") +
+p_gray <- p +
+  ggplot2::geom_hline(data = t_intercepts, aes(yintercept = conf_99_low), color = "#000000", lty = "dashed") +
+  ggplot2::geom_hline(data = t_intercepts, aes(yintercept = conf_99_high), color = "#000000", lty = "dashed") +
   ggplot2::scale_color_brewer(palette = "Greys") +
-  ggplot2::scale_fill_brewer(palette = "Greys"); ggsave(
+  ggplot2::scale_fill_brewer(palette = "Greys");
+p_gray
+p_gray; ggsave(
   paste0("fig_f_tmh_", percentage, "_panel_bw.png"),
   width = 7,
   height = 7
 )
-p + ggplot2::geom_hline(data = t_intercepts, aes(yintercept = f_tmh), color = "#000000", lty = "dashed") +
-  ggplot2::scale_color_brewer(palette = "Greys") +
-  ggplot2::scale_fill_brewer(palette = "Greys"); ggsave(
+p_gray; ggsave(
   paste0("fig_f_tmh_", percentage, "_panel_bw.tiff"),
   width = 7,
   height = 7
 )
-p + ggplot2::geom_hline(data = t_intercepts, aes(yintercept = f_tmh), color = "#000000", lty = "dashed") +
-  ggplot2::scale_color_brewer(palette = "Greys") +
-  ggplot2::scale_fill_brewer(palette = "Greys"); ggsave(
+p_gray; ggsave(
   paste0("fig_f_tmh_", percentage, "_panel_bw.eps"),
   width = 7,
   height = 7
