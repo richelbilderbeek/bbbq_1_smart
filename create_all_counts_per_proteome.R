@@ -1,8 +1,8 @@
 # Usage:
 #
-# Rscript create_all_counts_per_proteome.R [target] [percentage]
+# Rscript create_all_counts_per_proteome.R [target] [percentage] [number of AAs that overlap]
 #
-# Rscript create_all_counts_per_proteome.R human 5
+# Rscript create_all_counts_per_proteome.R human 2% 1AA
 #
 # Results in a file called `[target]_[percentage]_counts.csv`,
 # with a table like this:
@@ -28,10 +28,11 @@ args <- commandArgs(trailingOnly = TRUE)
 message("args: {", paste0(args, collapse = ", "), "}")
 
 if (1 == 2) {
-  args <- c("human", "2%")
-  args <- c("covid", "2%")
+  args <- c("human", "2%", "1AA")
+  args <- c("covid", "2%", "1AA")
+  args <- c("covid", "2%", "1AA")
 }
-testthat::expect_equal(length(args), 2)
+testthat::expect_equal(length(args), 3)
 target_name <- args[1]
 message("target_name: ", target_name)
 bbbq::check_target_name(target_name)
@@ -40,6 +41,11 @@ testthat::expect_true(nchar(args[2]) > 1)
 testthat::expect_equal("%", stringr::str_sub(args[2], nchar(args[2]), nchar(args[2])))
 percentage <- as.numeric(stringr::str_sub(args[2], 1, nchar(args[2]) - 1))
 message("percentage: ", percentage)
+
+testthat::expect_true(nchar(args[3]) > 1)
+testthat::expect_equal("AA", stringr::str_sub(args[3], 2, nchar(args[3])))
+n_aas_overlap <- as.numeric(stringr::str_sub(args[3], 1, nchar(args[3]) - 2))
+message("number of AAs overlap: ", n_aas_overlap)
 
 testthat::expect_true(percentage >= 0)
 testthat::expect_true(percentage <= 100)
@@ -120,7 +126,7 @@ for (haplotype_index in seq_along(haplotypes)) {
   t_topology <- t_topology %>% filter(nchar(sequence) >= peptide_length)
   testthat::expect_equal(nrow(t_proteome), nrow(t_topology))
   testthat::expect_true(all(t_proteome$name == t_topology$name))
-  
+
   # Keep only the sequences with the 20 standard amino acids
   regexp <- paste0("^[", paste0(Peptides::aaList(), collapse = ""), "]+$")
   keep_indices <- stringr::str_which(string = t_proteome$sequence, pattern = regexp)

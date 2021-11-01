@@ -44,13 +44,13 @@ covid_2_counts.csv: create_all_counts_per_proteome.R
 	Rscript -e 'remotes::install_github("richelbilderbeek/pureseqtmr")'
 	Rscript -e 'remotes::install_bioc("Biostrings")'
 	Rscript -e 'remotes::install_github("richelbilderbeek/bbbq")'
-	Rscript create_all_counts_per_proteome.R covid 2%
+	Rscript create_all_counts_per_proteome.R covid 2% 1AA
 
 human_2_counts.csv: create_all_counts_per_proteome.R
-	Rscript create_all_counts_per_proteome.R human 2%
+	Rscript create_all_counts_per_proteome.R human 2% 1AA
 
 myco_2_counts.csv: create_all_counts_per_proteome.R
-	Rscript create_all_counts_per_proteome.R myco 2%
+	Rscript create_all_counts_per_proteome.R myco 2% 1AA
 
 ################################################################################
 #
