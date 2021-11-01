@@ -30,7 +30,7 @@ message("args: {", paste0(args, collapse = ", "), "}")
 if (1 == 2) {
   args <- c("human", "2%", "1AA")
   args <- c("covid", "2%", "1AA")
-  args <- c("covid", "2%", "1AA")
+  args <- c("covid", "2%", "2AA")
 }
 testthat::expect_equal(length(args), 3)
 target_name <- args[1]
@@ -153,7 +153,7 @@ for (haplotype_index in seq_along(haplotypes)) {
   testthat::expect_true(all(t_proteome_n_mers$name == t_topology_n_mers$name))
   t_topology_n_mers$overlap_with_tmh <- stringr::str_detect(
     string = t_topology_n_mers$n_mer,
-    pattern = "[mM]"
+    pattern = paste0("[mM]{", n_aas_overlap, "}")
   )
 
   t_ic50s <- bbbq::get_ic50s_lut(
