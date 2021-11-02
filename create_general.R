@@ -1,22 +1,4 @@
 # Create the 'general.csv' file, containing general info
-
-# Parse arguments
-args <- commandArgs(trailingOnly = TRUE)
-
-if (1 == 2) {
-  args <- c("1AA")
-  args <- c("2AA")
-}
-message("args: {", paste0(args, collapse = ", "), "}")
-
-testthat::expect_equal(length(args), 1)
-testthat::expect_true(nchar(args[1]) > 1)
-testthat::expect_equal("AA", stringr::str_sub(args[1], 2, nchar(args[1])))
-n_aas_overlap <- as.numeric(stringr::str_sub(args[1], 1, nchar(args[1]) - 2))
-message("number of AAs overlap: ", n_aas_overlap)
-
-
-
 targets <- bbbq::get_target_names()
 targets <- c("covid", "human", "myco")
 n_targets <- length(targets)
@@ -90,13 +72,13 @@ for (i in seq_len(nrow(t_general))) {
   t_general$n_tmh_proteins[i] <- sum(
     stringr::str_detect(
       string = topology$topology,
-      pattern = paste0("[mM]{", n_aas_overlap, "}")
+      pattern = "[mM]"
     )
   )
   t_general$n_aas_tmh[i] <- sum(
     stringr::str_count(
       string = topology$topology,
-      pattern = paste0("[mM]{", n_aas_overlap, "}")
+      pattern = "[mM]"
     )
   )
   t_general$n_aas_non_tmh[i] <- sum(
