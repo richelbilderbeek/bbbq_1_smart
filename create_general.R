@@ -2,12 +2,12 @@
 
 # Parse arguments
 args <- commandArgs(trailingOnly = TRUE)
-message("args: {", paste0(args, collapse = ", "), "}")
 
 if (1 == 2) {
   args <- c("1AA")
   args <- c("2AA")
 }
+message("args: {", paste0(args, collapse = ", "), "}")
 
 testthat::expect_equal(length(args), 1)
 testthat::expect_true(nchar(args[1]) > 1)
@@ -89,11 +89,15 @@ for (i in seq_len(nrow(t_general))) {
   )
   t_general$n_tmh_proteins[i] <- sum(
     stringr::str_detect(
-      topology$topology, paste0("[mM]{", n_aas_overlap, "}"
+      string = topology$topology,
+      pattern = paste0("[mM]{", n_aas_overlap, "}")
     )
   )
   t_general$n_aas_tmh[i] <- sum(
-    stringr::str_count(topology$topology, paste0("[mM]{", n_aas_overlap, "}")
+    stringr::str_count(
+      string = topology$topology,
+      pattern = paste0("[mM]{", n_aas_overlap, "}")
+    )
   )
   t_general$n_aas_non_tmh[i] <- sum(
     stringr::str_count(topology$topology, "[iIoO]")
