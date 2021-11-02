@@ -59,7 +59,7 @@ myco_2_counts.csv: create_all_counts_per_proteome.R
 ################################################################################
 
 general.csv: create_general.R
-	Rscript create_general.R
+	Rscript create_general.R 2AA
 
 counts_2.csv: merge_all_counts_per_proteome.R
 	Rscript merge_all_counts_per_proteome.R 2

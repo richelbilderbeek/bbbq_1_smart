@@ -1,8 +1,8 @@
 # Usage:
 #
-# Rscript explain_with_hydrophobicity.R [target] [percentage] [MHC class]
+# Rscript explain_with_hydrophobicity.R [target] [percentage] [MHC class] [number of AA that overlap]
 #
-# Rscript explain_with_hydrophobicity.R covid 2% MHC-I
+# Rscript explain_with_hydrophobicity.R covid 2% MHC-I 1AA
 #
 # Results in a file called `[target]_[percentage]_counts.csv`,
 # with a table like this:
@@ -16,10 +16,10 @@
 # Create all counts
 args <- commandArgs(trailingOnly = TRUE)
 if (1 == 2) {
-  args <- c("covid", "2%", "MHC-I")
-  args <- c("myco", "2%", "MHC-I")
-  args <- c("human", "2%", "MHC-I")
-  args <- c("human", "2%", "MHC-II")
+  args <- c("covid", "2%", "MHC-I", "1AA")
+  args <- c("myco", "2%", "MHC-I", "1AA")
+  args <- c("human", "2%", "MHC-I", "1AA")
+  args <- c("human", "2%", "MHC-II", "1AA")
 }
 message("args: {", paste0(args, collapse = ", "), "}")
 
@@ -141,7 +141,7 @@ for (haplotype_index in seq_along(haplotypes)) {
   testthat::expect_true(all(t_proteome_n_mers$name == t_topology_n_mers$name))
   t_topology_n_mers$overlap_with_tmh <- stringr::str_detect(
     string = t_topology_n_mers$n_mer,
-    pattern = "[mM]"
+    pattern = paste0("[mM]{", n_aas_overlap, "}"
   )
 
   t_ic50s <- bbbq::get_ic50s_lut(
