@@ -6,17 +6,17 @@
 \hline
 target & mhc\_class & n\_spots & n\_spots\_tmh & f\_tmh\\
 \hline
-covid & 1 & 14207 & 1124 & 7.91\\
+covid & 1 & 14207 & 1065 & 7.50\\
 \hline
-covid & 2 & 14137 & 1245 & 8.81\\
+covid & 2 & 14137 & 1199 & 8.48\\
 \hline
-human & 1 & 11220940 & 598391 & 5.33\\
+human & 1 & 11220940 & 563420 & 5.02\\
 \hline
-human & 2 & 11118448 & 672273 & 6.05\\
+human & 2 & 11118448 & 643885 & 5.79\\
 \hline
-myco & 1 & 1299707 & 98613 & 7.59\\
+myco & 1 & 1299707 & 93545 & 7.20\\
 \hline
-myco & 2 & 1279742 & 108419 & 8.47\\
+myco & 2 & 1279742 & 104529 & 8.17\\
 \hline
 \end{tabular}
 \end{table}
