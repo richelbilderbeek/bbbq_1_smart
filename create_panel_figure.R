@@ -80,7 +80,7 @@ t_tmh_binders$f_tmh <- NA
 t_tmh_binders$f_tmh <- t_tmh_binders$n_binders_tmh / t_tmh_binders$n_binders
 
 # Add the MHC class
-t_tmh_binders$mhc_class <- NA
+t_tmh_binders$mhc_class <- 2 # Use 2 per default, as (1) bbbq::get_mhc2_haplotypes has changed, (2) this has been tested to be true for old bbbq::get_mhc2_haplotypes
 t_tmh_binders$mhc_class[
   t_tmh_binders$haplotype %in% bbbq::get_mhc1_haplotypes()
 ] <- 1
@@ -123,6 +123,16 @@ for (i in seq_len(nrow(t_coincidence))) {
   t_coincidence$conf_99_high[i] <- binom_test_result$conf.int[2]
 }
 t_coincidence
+
+readr::write_csv(t_coincidence, "table_coincidence.csv")
+
+knitr::kable(
+  t_coincidence, "latex",
+  caption = paste0(
+    "Percentage of spots and spots that overlap with a TMH"
+  ),
+  label = "coincidence"
+) %>% cat(., file = "table_coincidence.latex")
 
 
 f_covid <- t_coincidence$f_tmh[t_coincidence$target == "covid"]

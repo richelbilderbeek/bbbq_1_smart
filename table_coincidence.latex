@@ -1,0 +1,22 @@
+\begin{table}
+
+\caption{\label{tab:coincidence}Percentage of spots and spots that overlap with a TMH}
+\centering
+\begin{tabular}[t]{l|l|r|r|r|r|r}
+\hline
+target & mhc\_class & n\_spots & n\_spots\_tmh & f\_tmh & conf\_99\_low & conf\_99\_high\\
+\hline
+covid & I & 14207 & 1124 & 0.0791159 & 0.0733895 & 0.0851265\\
+\hline
+covid & II & 14137 & 1245 & 0.0880668 & 0.0820316 & 0.0943813\\
+\hline
+human & I & 11220940 & 598391 & 0.0533281 & 0.0531554 & 0.0535011\\
+\hline
+human & II & 11118448 & 672273 & 0.0604646 & 0.0602807 & 0.0606490\\
+\hline
+myco & I & 1299707 & 98613 & 0.0758733 & 0.0752761 & 0.0764735\\
+\hline
+myco & II & 1279742 & 108419 & 0.0847194 & 0.0840865 & 0.0853554\\
+\hline
+\end{tabular}
+\end{table}
