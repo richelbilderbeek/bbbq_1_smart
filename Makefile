@@ -44,6 +44,7 @@ covid_2_counts.csv: create_all_counts_per_proteome.R
 	Rscript -e 'remotes::install_github("richelbilderbeek/pureseqtmr")'
 	Rscript -e 'remotes::install_bioc("Biostrings")'
 	Rscript -e 'remotes::install_github("richelbilderbeek/bbbq")'
+	echo "Tip: LUTs are created by https://github.com/richelbilderbeek/bbbq_article_issue_167 :-)"
 	Rscript create_all_counts_per_proteome.R covid 2% 2AA
 
 human_2_counts.csv: create_all_counts_per_proteome.R
