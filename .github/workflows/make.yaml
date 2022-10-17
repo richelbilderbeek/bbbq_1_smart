@@ -30,6 +30,8 @@ jobs:
           remotes::install_cran("devtools")
           remotes::install_cran("seqinr")
           remotes::install_cran("data.table")
+          remotes::install_github("richelbilderbeek/ormr")
+          remotes::install_github("richelbilderbeek/mhcnuggetsr")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           remotes::install_cran("covr")
