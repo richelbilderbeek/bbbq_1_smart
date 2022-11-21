@@ -26,7 +26,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          install.packages(c("remotes", "rcmdcheck"))
+          install.packages(c("remotes", "rcmdcheck", "pkgdown"))
           remotes::install_cran("devtools")
           remotes::install_cran("seqinr")
           remotes::install_cran("data.table")
